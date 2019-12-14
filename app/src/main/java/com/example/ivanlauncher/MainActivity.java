@@ -10,13 +10,16 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.telecom.TelecomManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
     static {
         contacts = new MenuElement("Contacts", root);
         MenuElement readImage = new MenuElement("ReadImage", root);
+        MenuElement settings = new MenuElement("Settings", root);
 
 
         root.setChildren(new ArrayList<MenuElement>());
         root.getChildren().add(contacts);
         root.getChildren().add(readImage);
+        root.getChildren().add(settings);
 
     }
 
@@ -131,6 +136,26 @@ public class MainActivity extends AppCompatActivity {
 
         offerReplacingDefaultDialer();
 
+
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int ttsLang = textToSpeech.setLanguage(Locale.US);
+
+                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                            || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "The Language is not supported!");
+                    } else {
+                        Log.i("TTS", "Language Supported.");
+                    }
+                    Log.i("TTS", "Initialization success.");
+                } else {
+                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         notifyForChanges();
     }
 
@@ -195,14 +220,24 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + ((Contact) theNewPosition).getPhoneNumber()));
                 startActivity(intent);
             }
+        } else if ("Settings".equals(theNewPosition.getName())) {
+            startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+            return;
         }
         this.currentPosition = theNewPosition;
         notifyForChanges();
     }
 
     private void notifyForChanges() {
-        tv.setText(this.currentPosition.getName() + ":" + this.currentPosition.getFocusChildName());
+        tv.setText(this.currentPosition.getName() + " : " + this.currentPosition.getFocusChildName());
         tv.invalidate();
+
+        int speechStatus = textToSpeech.speak(tv.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+
+        if (speechStatus == TextToSpeech.ERROR) {
+            Log.e("TTS", "Error in converting Text to Speech!");
+        }
+
     }
 
 
@@ -221,11 +256,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-//    List contacts = null;
-
     //todo check when is needed to refresh that may be on resume or on start !!!
     void refreshContacts(ArrayList list) {
         this.contacts.setChildren(list);
+    }
+
+    private TextToSpeech textToSpeech;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
     }
 }
