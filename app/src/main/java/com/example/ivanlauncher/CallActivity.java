@@ -5,9 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 
 public final class CallActivity extends AppCompatActivity {
 
@@ -18,9 +18,8 @@ public final class CallActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
 
-        Uri uri = intent.getData();
+        ((TextView)findViewById(R.id.callInfo)).setText(intent.getStringExtra("number"));
 
-//        this.number = uri.getSchemeSpecificPart();
     }
 
     protected void onStart() {
@@ -51,6 +50,12 @@ public final class CallActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 //        this.disposables.clear();
+    }
+
+
+    void kill_activity()
+    {
+        finish();
     }
 
 

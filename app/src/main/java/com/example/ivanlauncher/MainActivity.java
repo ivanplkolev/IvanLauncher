@@ -126,18 +126,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        refreshContacts(ContactsLoader.getAllContacts(this));
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-
-        }   else {
-            requestPermission(this);
-        }
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            refreshContacts(ContactsLoader.getAllContacts(this));
-        }   else {
-            requestPermission(this);
-        }
+        requestPermission(this);
 
         offerReplacingDefaultDialer();
 
@@ -146,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void offerReplacingDefaultDialer() {
-        if (!getSystemService(TelecomManager.class).getDefaultDialerPackage().equals( getPackageName())) {
+        if (!getSystemService(TelecomManager.class).getDefaultDialerPackage().equals(getPackageName())) {
             Intent intent = new Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER);
             intent.putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, getPackageName());
             startActivity(intent);
@@ -154,25 +144,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public static final int REQUEST_CALL_PHONE = 77;
     public static final int REQUEST_READ_CONTACTS = 79;
 
-    private static void requestPermission(Activity activity) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, android.Manifest.permission.CALL_PHONE)) {
-            // show UI part if you want here to show some rationale !!!
-        } else {
-            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.CALL_PHONE},
-                    REQUEST_CALL_PHONE);
-        }
+    private static void requestPermission(MainActivity activity) {
+//        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, android.Manifest.permission.CALL_PHONE)) {
+//            // show UI part if you want here to show some rationale !!!
+//        } else {
+//            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.CALL_PHONE},
+//                    REQUEST_CALL_PHONE);
+//        }
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, android.Manifest.permission.READ_CONTACTS)) {
-
+            activity.refreshContacts(ContactsLoader.getAllContacts(activity));
         } else {
-            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.READ_CONTACTS},
+            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE},
                     REQUEST_READ_CONTACTS);
         }
     }
-
 
 
     private void onDown() {
@@ -232,8 +220,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
 
 //    List contacts = null;

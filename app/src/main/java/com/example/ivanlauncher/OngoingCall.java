@@ -4,22 +4,27 @@ import android.telecom.Call;
 
 public final class OngoingCall {
 
-    private static Call call;
+    public static Call call;
 
 
     static CallActivity callActivity;
 
     static Call.Callback callback = new Call.Callback() {
         public void onStateChanged(Call call, int newState) {
-            callActivity.updateUi(newState);
+            if (callActivity != null)
+                callActivity.updateUi(newState);
         }
     };
 
-    public final static void setCall( Call call) {
+    public final static void setCall(Call call) {
         if (call != null) {
             call.unregisterCallback(callback);
             call.registerCallback(callback);
-            callActivity.updateUi(call.getState());
+            if (callActivity != null)
+                callActivity.updateUi(call.getState());
+        } else {
+            if (callActivity != null)
+                callActivity.kill_activity();
         }
 
         OngoingCall.call = call;
