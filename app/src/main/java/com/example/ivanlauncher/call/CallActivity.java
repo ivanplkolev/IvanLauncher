@@ -1,13 +1,14 @@
-package com.example.ivanlauncher;
+package com.example.ivanlauncher.call;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.ivanlauncher.R;
 
 public final class CallActivity extends AppCompatActivity {
 

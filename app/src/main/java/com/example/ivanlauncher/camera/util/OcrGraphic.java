@@ -1,4 +1,4 @@
-package com.example.ivanlauncher.ocr.camera.util;/*
+package com.example.ivanlauncher.camera.util;/*
  * Copyright (C) The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-import com.example.ivanlauncher.ocr.camera.GraphicOverlay;
+import com.example.ivanlauncher.camera.GraphicOverlay;
 import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextBlock;
 

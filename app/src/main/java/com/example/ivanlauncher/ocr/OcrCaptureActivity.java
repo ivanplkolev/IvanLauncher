@@ -21,10 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.ocr.camera.CameraSourcePreview;
-import com.example.ivanlauncher.ocr.camera.GraphicOverlay;
-import com.example.ivanlauncher.ocr.camera.util.OcrDetectorProcessor;
-import com.example.ivanlauncher.ocr.camera.util.OcrGraphic;
+import com.example.ivanlauncher.camera.CameraSourcePreview;
+import com.example.ivanlauncher.camera.GraphicOverlay;
+import com.example.ivanlauncher.camera.util.OcrDetectorProcessor;
+import com.example.ivanlauncher.camera.util.OcrGraphic;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.CommonStatusCodes;

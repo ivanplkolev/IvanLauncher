@@ -1,11 +1,8 @@
-package com.example.ivanlauncher;
+package com.example.ivanlauncher.call;
 
 import android.content.Intent;
-import android.os.Build;
 import android.telecom.Call;
 import android.telecom.InCallService;
-
-import androidx.annotation.RequiresApi;
 
 
 public final class CallService extends InCallService {

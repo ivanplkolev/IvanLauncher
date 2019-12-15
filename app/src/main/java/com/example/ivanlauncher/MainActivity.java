@@ -5,21 +5,22 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.telecom.TelecomManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.ivanlauncher.contacts.ContactsLoader;
 import com.example.ivanlauncher.email.EmailSender;
+import com.example.ivanlauncher.ui.Contact;
+import com.example.ivanlauncher.ui.MenuElement;
+import com.example.ivanlauncher.ui.TextReader;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
     MenuElement currentPosition = root;
     TextView tv;
+
+
+    TextReader reader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,25 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
         offerReplacingDefaultDialer();
 
-
-        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    int ttsLang = textToSpeech.setLanguage(Locale.US);
-
-                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA
-                            || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e("TTS", "The Language is not supported!");
-                    } else {
-                        Log.i("TTS", "Language Supported.");
-                    }
-                    Log.i("TTS", "Initialization success.");
-                } else {
-                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        reader = new TextReader(getApplicationContext());
 
         notifyForChanges();
     }
@@ -240,12 +226,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(this.currentPosition.getName() + " : " + this.currentPosition.getFocusChildName());
         tv.invalidate();
 
-        int speechStatus = textToSpeech.speak(tv.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, null);
-
-        if (speechStatus == TextToSpeech.ERROR) {
-            Log.e("TTS", "Error in converting Text to Speech!");
-        }
-
+       reader.read(tv.getText().toString());
     }
 
 
@@ -269,14 +250,10 @@ public class MainActivity extends AppCompatActivity {
         this.contacts.setChildren(list);
     }
 
-    private TextToSpeech textToSpeech;
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (textToSpeech != null) {
-            textToSpeech.stop();
-            textToSpeech.shutdown();
-        }
     }
 }

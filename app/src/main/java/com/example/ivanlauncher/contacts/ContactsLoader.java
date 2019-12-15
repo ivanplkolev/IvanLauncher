@@ -1,14 +1,11 @@
-package com.example.ivanlauncher;
+package com.example.ivanlauncher.contacts;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.os.Build;
 import android.provider.ContactsContract;
 
-import androidx.core.app.ActivityCompat;
+import com.example.ivanlauncher.ui.Contact;
+import com.example.ivanlauncher.MainActivity;
 
 import java.util.ArrayList;
 

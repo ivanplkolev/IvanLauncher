@@ -1,8 +1,8 @@
-package com.example.ivanlauncher;
+package com.example.ivanlauncher.ui;
 
 public class Contact extends MenuElement {
 
-    Contact(String name, MenuElement parent) {
+    public Contact(String name, MenuElement parent) {
         super(name, parent);
     }
 

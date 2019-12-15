@@ -62,7 +62,7 @@
 
 
         <service
-            android:name=".CallService"
+            android:name=".call.CallService"
             android:permission="android.permission.BIND_INCALL_SERVICE">
             <meta-data
                 android:name="android.telecom.IN_CALL_SERVICE_UI"
@@ -72,7 +72,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".CallActivity" />
+        <activity android:name=".call.CallActivity" />
 
         <activity android:name=".ocr.OcrCaptureActivity"   />
     </application>

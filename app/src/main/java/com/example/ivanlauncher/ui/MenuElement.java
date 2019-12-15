@@ -1,4 +1,4 @@
-package com.example.ivanlauncher;
+package com.example.ivanlauncher.ui;
 
 import java.util.ArrayList;
 
@@ -8,12 +8,12 @@ public class MenuElement {
     private MenuElement parent;
     private int childOnFocus = 0;
 
-    MenuElement(String name, MenuElement parent) {
+    public MenuElement(String name, MenuElement parent) {
         this.name = name;
         this.parent = parent;
     }
 
-    MenuElement getParent() {
+    public MenuElement getParent() {
         return parent != null ? parent : this;
     }
 
@@ -21,13 +21,13 @@ public class MenuElement {
         return children != null ? (childOnFocus >= children.size() ? children.get(children.size() - 1) : children.get(childOnFocus)) : this;
     }
 
-    void focusOnNextChild() {
+    public void focusOnNextChild() {
         if (children != null && childOnFocus < children.size()-1) {
             childOnFocus++;
         }
     }
 
-    void focusPrevChild() {
+    public void focusPrevChild() {
         if (children != null  && childOnFocus > 0) {
             childOnFocus--;
         }
