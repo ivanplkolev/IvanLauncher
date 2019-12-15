@@ -20,20 +20,20 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
-//import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
-import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
+import com.example.ivanlauncher.email.EmailSender;
+import com.example.ivanlauncher.ui.GestureListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,14 +43,17 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+//import android.support.annotation.NonNull;
 
 //import android.support.v4.app.ActivityCompat;
 //import android.support.v7.app.AppCompatActivity;
 
 public class CamerActivity extends AppCompatActivity {
     private static final String TAG = "AndroidCameraApi";
-    private Button takePictureButton;
+    private TextView textView;
     private TextureView textureView;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -80,15 +83,42 @@ public class CamerActivity extends AppCompatActivity {
         textureView = (TextureView) findViewById(R.id.texture);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
-        takePictureButton = (Button) findViewById(R.id.btn_takepicture);
-        assert takePictureButton != null;
-        takePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePicture();
+
+        findViewById(R.id.camera_main_layout).setOnTouchListener(new GestureListener(){
+            public void onRightToLeftSwipe() {
+                Log.e("RIGHT-LEFT", "please pass SwipeDetector.onSwipeEvent Interface instance");
+                CamerActivity.this.takePicture();
+            }
+
+            public void onLeftToRightSwipe() {
+                Log.e("LEFT-RIGHT", "please pass SwipeDetector.onSwipeEvent Interface instance");
+                close();
+            }
+
+            public void onTopToBottomSwipe() {
+                Log.e("TOP-DOWN", "please pass SwipeDetector.onSwipeEvent Interface instance");
+//                MainActivity.this.onDown();
+            }
+
+            public void onBottomToTopSwipe() {
+                Log.e("DOWN-TOP", "please pass SwipeDetector.onSwipeEvent Interface instance");
+//                MainActivity.this.onUp();
             }
         });
     }
+
+
+    private void close(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                onBackPressed();
+            }
+        });
+
+    }
+
+
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -148,6 +178,14 @@ public class CamerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
+    static String generateFileName(){
+    return new Date().toString();
+    }
+
+
+
     protected void takePicture() {
         if(null == cameraDevice) {
             Log.e(TAG, "cameraDevice is null");
@@ -176,7 +214,7 @@ public class CamerActivity extends AppCompatActivity {
             // Orientation
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-            final File file = new File(Environment.getExternalStorageDirectory()+"/pic.jpg");
+            final File file = new File(Environment.getExternalStorageDirectory()+"/"+generateFileName()+".jpg");
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
@@ -186,7 +224,13 @@ public class CamerActivity extends AppCompatActivity {
                         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
+
                         save(bytes);
+
+                        new EmailSender().execute(file);
+
+                        CamerActivity.this.close();
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

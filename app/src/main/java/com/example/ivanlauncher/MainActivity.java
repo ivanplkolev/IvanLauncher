@@ -7,17 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.contacts.ContactsLoader;
-import com.example.ivanlauncher.email.EmailSender;
 import com.example.ivanlauncher.simple_camera.CamerActivity;
 import com.example.ivanlauncher.ui.Contact;
+import com.example.ivanlauncher.ui.GestureListener;
 import com.example.ivanlauncher.ui.MenuElement;
 import com.example.ivanlauncher.ui.TextReader;
 
@@ -31,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
     static {
         MenuElement status = new MenuElement("Status", root);
         contacts = new MenuElement("Contacts", root);
-        MenuElement readImage = new MenuElement("ReadImage", root);
+        MenuElement readImage = new MenuElement("Send Email", root);
         MenuElement settings = new MenuElement("Settings", root);
         MenuElement allApps = new MenuElement("AllApps", root);
-        MenuElement emailSender = new MenuElement("Emails", root);
+//        MenuElement emailSender = new MenuElement("Emails", root);
 
 
         root.setChildren(new ArrayList<MenuElement>());
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         root.getChildren().add(readImage);
         root.getChildren().add(settings);
         root.getChildren().add(allApps);
-        root.getChildren().add(emailSender);
+//        root.getChildren().add(emailSender);
 
     }
 
@@ -60,13 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tv = findViewById(R.id.textView);
-        tv.setOnTouchListener(new View.OnTouchListener() {
-
-            private int min_distance = 100;
-            private float downX, downY, upX, upY;
-            private View v;
-
-
+        tv.setOnTouchListener(new GestureListener(){
             public void onRightToLeftSwipe() {
                 Log.e("RIGHT-LEFT", "please pass SwipeDetector.onSwipeEvent Interface instance");
                 MainActivity.this.onLeft();
@@ -85,60 +77,6 @@ public class MainActivity extends AppCompatActivity {
             public void onBottomToTopSwipe() {
                 Log.e("DOWN-TOP", "please pass SwipeDetector.onSwipeEvent Interface instance");
                 MainActivity.this.onUp();
-            }
-
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        downX = event.getX();
-                        downY = event.getY();
-                        return true;
-                    }
-                    case MotionEvent.ACTION_UP: {
-                        upX = event.getX();
-                        upY = event.getY();
-
-                        float deltaX = downX - upX;
-                        float deltaY = downY - upY;
-
-                        //HORIZONTAL SCROLL
-                        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                            if (Math.abs(deltaX) > min_distance) {
-                                // left or right
-                                if (deltaX < 0) {
-                                    this.onLeftToRightSwipe();
-                                    return true;
-                                }
-                                if (deltaX > 0) {
-                                    this.onRightToLeftSwipe();
-                                    return true;
-                                }
-                            } else {
-                                //not long enough swipe...
-                                return false;
-                            }
-                        }
-                        //VERTICAL SCROLL
-                        else {
-                            if (Math.abs(deltaY) > min_distance) {
-                                // top or down
-                                if (deltaY < 0) {
-                                    this.onTopToBottomSwipe();
-                                    return true;
-                                }
-                                if (deltaY > 0) {
-                                    this.onBottomToTopSwipe();
-                                    return true;
-                                }
-                            } else {
-                                //not long enough swipe...
-                                return false;
-                            }
-                        }
-                        return true;
-                    }
-                }
-                return false;
             }
         });
 
@@ -216,9 +154,11 @@ public class MainActivity extends AppCompatActivity {
         } else if ("Settings".equals(theNewPosition.getName())) {
             startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
             return;
-        } else if("Emails".equals(theNewPosition.getName())){
-           new EmailSender().execute("");
-        } else if("ReadImage".equals(theNewPosition.getName())){
+//        } else if("Emails".equals(theNewPosition.getName())){
+//            Intent i = new Intent(this, CamerActivity.class);
+//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(i);
+        } else if("Send Email".equals(theNewPosition.getName())){
             Intent i = new Intent(this, CamerActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
