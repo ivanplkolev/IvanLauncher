@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.contacts.ContactsLoader;
 import com.example.ivanlauncher.email.EmailSender;
+import com.example.ivanlauncher.simple_camera.CamerActivity;
 import com.example.ivanlauncher.ui.Contact;
 import com.example.ivanlauncher.ui.MenuElement;
 import com.example.ivanlauncher.ui.TextReader;
@@ -217,6 +218,10 @@ public class MainActivity extends AppCompatActivity {
             return;
         } else if("Emails".equals(theNewPosition.getName())){
            new EmailSender().execute("");
+        } else if("ReadImage".equals(theNewPosition.getName())){
+            Intent i = new Intent(this, CamerActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         }
         this.currentPosition = theNewPosition;
         notifyForChanges();
