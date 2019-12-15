@@ -1,11 +1,6 @@
 package com.example.ivanlauncher;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,6 +13,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import com.example.ivanlauncher.email.EmailSender;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -27,15 +27,21 @@ public class MainActivity extends AppCompatActivity {
     public static MenuElement contacts;
 
     static {
+        MenuElement status = new MenuElement("Status", root);
         contacts = new MenuElement("Contacts", root);
         MenuElement readImage = new MenuElement("ReadImage", root);
         MenuElement settings = new MenuElement("Settings", root);
+        MenuElement allApps = new MenuElement("AllApps", root);
+        MenuElement emailSender = new MenuElement("Emails", root);
 
 
         root.setChildren(new ArrayList<MenuElement>());
+        root.getChildren().add(status);
         root.getChildren().add(contacts);
         root.getChildren().add(readImage);
         root.getChildren().add(settings);
+        root.getChildren().add(allApps);
+        root.getChildren().add(emailSender);
 
     }
 
@@ -48,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv = findViewById(R.id.tv);
+        tv = findViewById(R.id.textView);
         tv.setOnTouchListener(new View.OnTouchListener() {
 
             private int min_distance = 100;
@@ -223,6 +229,8 @@ public class MainActivity extends AppCompatActivity {
         } else if ("Settings".equals(theNewPosition.getName())) {
             startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
             return;
+        } else if("Emails".equals(theNewPosition.getName())){
+           new EmailSender().execute("");
         }
         this.currentPosition = theNewPosition;
         notifyForChanges();
