@@ -4,9 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,7 +57,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //this blicks notifications but and the touch listener !
+//        getWindow().addFlags(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
+
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         tv = findViewById(R.id.textView);
         tv.setOnTouchListener(new GestureListener(){
@@ -154,10 +160,9 @@ public class MainActivity extends AppCompatActivity {
         } else if ("Settings".equals(theNewPosition.getName())) {
             startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
             return;
-//        } else if("Emails".equals(theNewPosition.getName())){
-//            Intent i = new Intent(this, CamerActivity.class);
-//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(i);
+        } else if("Status".equals(theNewPosition.getName())){
+            readStatus();
+            return;
         } else if("Send Email".equals(theNewPosition.getName())){
             Intent i = new Intent(this, CamerActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -165,6 +170,15 @@ public class MainActivity extends AppCompatActivity {
         }
         this.currentPosition = theNewPosition;
         notifyForChanges();
+    }
+
+    private void readStatus() {
+
+        BatteryManager bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
+        int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+
+        reader.read("The battery persange is "+ batLevel);
+
     }
 
     private void notifyForChanges() {
