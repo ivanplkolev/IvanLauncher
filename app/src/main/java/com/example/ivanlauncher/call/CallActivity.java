@@ -2,13 +2,13 @@ package com.example.ivanlauncher.call;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.Call;
-import android.view.View;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ivanlauncher.R;
+import com.example.ivanlauncher.ui.GestureListener;
 
 public final class CallActivity extends AppCompatActivity {
 
@@ -16,6 +16,30 @@ public final class CallActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.activity_call);
+
+
+        findViewById(R.id.camera_main_layout).setOnTouchListener(new GestureListener(){
+            public void onRightToLeftSwipe() {
+                Log.e("RIGHT-LEFT", "please pass SwipeDetector.onSwipeEvent Interface instance");
+                OngoingCall.answer();
+            }
+
+            public void onLeftToRightSwipe() {
+                Log.e("LEFT-RIGHT", "please pass SwipeDetector.onSwipeEvent Interface instance");
+                OngoingCall.hangup();
+            }
+
+            public void onTopToBottomSwipe() {
+                Log.e("TOP-DOWN", "please pass SwipeDetector.onSwipeEvent Interface instance");
+//                MainActivity.this.onDown();
+            }
+
+            public void onBottomToTopSwipe() {
+                Log.e("DOWN-TOP", "please pass SwipeDetector.onSwipeEvent Interface instance");
+//                MainActivity.this.onUp();
+            }
+        });
+
 
         Intent intent = this.getIntent();
 
@@ -26,27 +50,13 @@ public final class CallActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        findViewById(R.id.answer).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OngoingCall.answer();
-            }
-        });
-
-        findViewById(R.id.hangup).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OngoingCall.hangup();
-            }
-        });
-
         OngoingCall.callActivity = this;
     }
 
-    public final void updateUi(int state) {
-        findViewById(R.id.answer).setVisibility(state == Call.STATE_RINGING ? View.VISIBLE : View.GONE);
-        findViewById(R.id.hangup).setVisibility(state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE ? View.VISIBLE : View.GONE);
-    }
+//    public final void updateUi(int state) {
+//        findViewById(R.id.answer).setVisibility(state == Call.STATE_RINGING ? View.VISIBLE : View.GONE);
+//        findViewById(R.id.hangup).setVisibility(state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE ? View.VISIBLE : View.GONE);
+//    }
 
     protected void onStop() {
         super.onStop();

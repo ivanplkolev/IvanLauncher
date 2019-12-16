@@ -11,8 +11,8 @@ public final class OngoingCall {
 
     static Call.Callback callback = new Call.Callback() {
         public void onStateChanged(Call call, int newState) {
-            if (callActivity != null)
-                callActivity.updateUi(newState);
+//            if (callActivity != null)
+//                callActivity.updateUi(newState);
         }
     };
 
@@ -20,8 +20,8 @@ public final class OngoingCall {
         if (call != null) {
             call.unregisterCallback(callback);
             call.registerCallback(callback);
-            if (callActivity != null)
-                callActivity.updateUi(call.getState());
+//            if (callActivity != null)
+//                callActivity.updateUi(call.getState());
         } else {
             if (callActivity != null)
                 callActivity.kill_activity();
