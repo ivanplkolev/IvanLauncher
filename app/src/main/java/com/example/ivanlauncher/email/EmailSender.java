@@ -15,7 +15,7 @@ public class EmailSender extends AsyncTask<File, Void, Void> {
         m.setFrom("plamenivkolev@gmail.com");
         m.setSubject("Test 1");
         m.addAttachment(urls[0]);
-        m.setTo(new String[]{"ivan.pl.kolev@gmail.com"});
+        m.setTo(new String[]{"ivan.pl.kolev@gmail.com", "v.p.koleva@gmail.com"});
 
             m.send();
         } catch (Exception e) {

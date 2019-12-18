@@ -10,7 +10,30 @@
     <string name="low_storage_error">Storage doesn\'t available</string>
     <string name="title_activity_ocr">Ocr Capture Activity</string>
 
+    <string name="mainMenu">Основно меню</string>
+    <string name="status">Статус на телефона</string>
     <string name="number">Номер</string>
+    <string name="allContacts">Всички контакти</string>
+    <string name="contactGroups">Групи контакти</string>
+    <string name="register">Регистър на повиквания</string>
+    <string name="missedCalls">ропуснати повиквания</string>
+    <string name="dailedCalls">Набрани номера</string>
+    <string name="receivedCalls">Приети повиквания</string>
+    <string name="sendMail">Изпрати писмо</string>
+    <string name="Calling">Търси Ви</string>
+    <string name="Dailing">Набиране</string>
+    <string name="settings">Настройки</string>
+    <string name="allApps">Всички приложения</string>
+    <string name="batteryIs">Батерията е </string>
+    <string name="percent">Процента</string>
+    <string name="nowCharging">Зареждам се</string>
+    <string name="currentTime">Часът е</string>
+    <string name="displayOn">Екранът е включен</string>
+    <string name="noNetwork">Няма връзка с интернет</string>
+    <string name="Wifi">Wi Fi</string>
+    <string name="mobileNework">Мобилен интернет много опасно</string>
+    <string name="selectedElementIs">Селектираният елемент е</string>
+    <string name="dailing">Набирам</string>
 
 
 </resources>
