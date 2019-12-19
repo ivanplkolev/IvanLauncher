@@ -1,15 +1,17 @@
 package com.example.ivanlauncher;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
-import android.view.WindowManager;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.ivanlauncher.contacts.ContactsProvider;
 import com.example.ivanlauncher.ui.GestureListener;
 import com.example.ivanlauncher.ui.TextReader;
 import com.example.ivanlauncher.ui.UserInterfaceEngine;
@@ -29,7 +31,12 @@ public class MainActivity extends AppCompatActivity {
 //        getWindow().addFlags(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
 
         setContentView(R.layout.activity_main);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
 
         ui = new UserInterfaceEngine(getApplicationContext(), (TextView) findViewById(R.id.maintextView));
 
@@ -55,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
         requestPermission();
 
         offerReplacingDefaultDialer();
+
+
+
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        MyBroadCastReciever mReceiver = new MyBroadCastReciever();
+        registerReceiver(mReceiver, intentFilter);
     }
 
     private void offerReplacingDefaultDialer() {
@@ -69,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS)) {
 //            ContactsProvider.refreshContacts(getApplicationContext());
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.CALL_PHONE}, REQUEST);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS,
+                    android.Manifest.permission.CALL_PHONE}, REQUEST);
         }
     }
 
@@ -86,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
+
+        ContactsProvider.getContacts(getApplicationContext());
     }
 
     public void onResume() {

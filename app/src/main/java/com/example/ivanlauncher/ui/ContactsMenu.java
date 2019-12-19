@@ -13,6 +13,7 @@ import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.contacts.ContactsProvider;
 import com.example.ivanlauncher.ui.elements.Contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsMenu implements MenuInterface {
@@ -25,14 +26,14 @@ public class ContactsMenu implements MenuInterface {
 
     Context context;
 
-//    TextReader reader;
+    //    TextReader reader;
     TextView tv;
 
     int currentPosition = 0;
 
     public ContactsMenu(Context context, TextView tv, UserInterfaceEngine parent) {
 //        reader = new TextReader(context);
-        contacts = ContactsProvider.getContacts(context);
+//        contacts = ContactsProvider.getContacts(context);
         this.tv = tv;
         this.context = context;
         this.parent = parent;
@@ -43,7 +44,13 @@ public class ContactsMenu implements MenuInterface {
     @Override
     public void resetUI() {
         currentPosition = 0;
-        contacts = ContactsProvider.getContacts(context);
+        contacts = new ArrayList<>(ContactsProvider.getContacts(context));
+
+        if (contacts.size() == 0) {
+            back();
+            return;
+        }
+
         notifyForChanges();
     }
 
@@ -70,7 +77,7 @@ public class ContactsMenu implements MenuInterface {
     public void enter() {
         Contact selectedContact = contacts.get(currentPosition);
 
-        TextReader.read(context.getString(R.string.dailing) + " "+ selectedContact.getName());
+        TextReader.read(context.getString(R.string.dailing) + " " + selectedContact.getName());
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedContact.getPhoneNumber()));

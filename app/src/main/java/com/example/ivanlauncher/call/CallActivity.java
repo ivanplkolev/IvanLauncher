@@ -2,6 +2,7 @@ package com.example.ivanlauncher.call;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -9,24 +10,33 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.ui.GestureListener;
+import com.example.ivanlauncher.ui.TextReader;
 
 public final class CallActivity extends AppCompatActivity {
 
-    protected void onCreate( Bundle savedInstanceState) {
+    boolean speakName = false;
+
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.activity_call);
 
 
-        findViewById(R.id.camera_main_layout).setOnTouchListener(new GestureListener(){
+        findViewById(R.id.caller_layout).setOnTouchListener(new GestureListener() {
             public void onRightToLeftSwipe() {
                 Log.e("RIGHT-LEFT", "please pass SwipeDetector.onSwipeEvent Interface instance");
+                speakName = false;
                 OngoingCall.answer();
             }
 
             public void onLeftToRightSwipe() {
                 Log.e("LEFT-RIGHT", "please pass SwipeDetector.onSwipeEvent Interface instance");
+
+                speakName = false;
                 OngoingCall.hangup();
+
+
+                TextReader.read(getApplicationContext().getString(R.string.closedConnection));
             }
 
             public void onTopToBottomSwipe() {
@@ -43,9 +53,17 @@ public final class CallActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
 
-        ((TextView)findViewById(R.id.callInfo)).setText(intent.getStringExtra("number"));
+
+        String callerInfo = intent.getStringExtra("number");
+        ((TextView) findViewById(R.id.callInfo)).setText(callerInfo);
+
+
+        callernameRepeater = new CallernameRepeater(callerInfo);
+        speakName = true;
+        callernameRepeater.start();
 
     }
+
 
     protected void onStart() {
         super.onStart();
@@ -53,10 +71,9 @@ public final class CallActivity extends AppCompatActivity {
         OngoingCall.callActivity = this;
     }
 
-//    public final void updateUi(int state) {
-//        findViewById(R.id.answer).setVisibility(state == Call.STATE_RINGING ? View.VISIBLE : View.GONE);
-//        findViewById(R.id.hangup).setVisibility(state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE ? View.VISIBLE : View.GONE);
-//    }
+    public final void updateUi(int state) {
+        speakName = (state == Call.STATE_RINGING);
+    }
 
     protected void onStop() {
         super.onStop();
@@ -64,13 +81,38 @@ public final class CallActivity extends AppCompatActivity {
     }
 
 
-    void kill_activity()
-    {
+    void kill_activity() {
+
+        TextReader.read(getApplicationContext().getString(R.string.closedConnection));
+
         finish();
+
+
     }
 
 
+    private CallernameRepeater callernameRepeater;
 
+    class CallernameRepeater extends Thread {
+
+        private String callerName;
+
+        CallernameRepeater(String callerName) {
+            this.callerName = callerName;
+        }
+
+        @Override
+        public void run() {
+            while (speakName) {
+                TextReader.read(callerName);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 
 }

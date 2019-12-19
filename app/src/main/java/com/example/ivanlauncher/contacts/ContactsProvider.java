@@ -27,7 +27,7 @@ public class ContactsProvider {
         return contacts;
     }
 
-    static class ContactsRefreshed extends AsyncTask<Object, Void, Void> {
+    private static class ContactsRefreshed extends AsyncTask<Object, Void, Void> {
 
         @Override
         protected Void doInBackground(Object... objects) {

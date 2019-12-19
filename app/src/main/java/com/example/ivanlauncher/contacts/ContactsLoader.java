@@ -7,13 +7,14 @@ import android.provider.ContactsContract;
 
 import com.example.ivanlauncher.ui.elements.Contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsLoader {
 
     public static void realodAllcontacts(Context activity, List<Contact> contactList) {
 
-        contactList.clear();
+        ArrayList<Contact> newContactList = new ArrayList<>();
         ContentResolver cr = activity.getContentResolver();
         Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
         if (cur == null || cur.getCount() == 0) {
@@ -28,12 +29,15 @@ public class ContactsLoader {
                 Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
                 if (pCur != null && pCur.moveToNext()) {
                     String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    contactList.add(new Contact(name, phoneNo));
+                    newContactList.add(new Contact(name, phoneNo));
                     pCur.close();
                 }
             }
         }
         cur.close();
+
+        contactList.clear();
+        contactList.addAll(newContactList);
     }
 
 }
