@@ -2,7 +2,7 @@ package com.example.ivanlauncher.ui;
 
 public interface MenuInterface {
 
-    void resumeUI();
+    void resetUI();
 
     void selectNext();
 
@@ -14,5 +14,5 @@ public interface MenuInterface {
 
     void notifyForChanges();
 
-    void destroy();
+//    void destroy();
 }

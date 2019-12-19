@@ -18,8 +18,8 @@ public class UserInterfaceEngine implements MenuInterface {
 
 
     @Override
-    public void resumeUI() {
-        active.resumeUI();
+    public void resetUI() {
+        active.resetUI();
     }
 
     @Override
@@ -47,19 +47,19 @@ public class UserInterfaceEngine implements MenuInterface {
         active.notifyForChanges();
     }
 
-    @Override
-    public void destroy() {
-        active.destroy();
-    }
+//    @Override
+//    public void destroy() {
+//        active.destroy();
+//    }
 
     void goToContacts() {
         active = contacts;
-        resumeUI();
+        resetUI();
     }
 
     void goToMainMenu() {
         active = mainMenu;
-        resumeUI();
+        resetUI();
     }
 
 

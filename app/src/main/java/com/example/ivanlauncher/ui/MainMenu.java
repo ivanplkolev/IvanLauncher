@@ -17,7 +17,7 @@ import java.util.Date;
 public class MainMenu implements MenuInterface {
 
     public MainMenu(Context context, TextView tv, UserInterfaceEngine parent) {
-        reader = new TextReader(context);
+//        reader = new TextReader(context);
         this.tv = tv;
         this.context = context;
         this.parent = parent;
@@ -34,17 +34,17 @@ public class MainMenu implements MenuInterface {
     Context context;
 
 
-    MainMenuElementType[] menu ;
+    MainMenuElementType[] menu;
 
-    TextReader reader;
+//    TextReader reader;
     TextView tv;
 
     int currentPosition = 0;
 
 
-    public void resumeUI() {
+    public void resetUI() {
         currentPosition = 0;
-        readStatus();
+        notifyForChanges();
     }
 
     public void selectNext() {
@@ -81,17 +81,23 @@ public class MainMenu implements MenuInterface {
                 context.startActivity(i);
                 break;
             case SETTINGS:
-                context.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+                Intent is = new Intent(android.provider.Settings.ACTION_SETTINGS);
+                is.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(is);
                 break;
         }
     }
 
 
     public void notifyForChanges() {
-        tv.setText(context.getString(menu[currentPosition].getNameId()));
+        MainMenuElementType currentElement = menu[currentPosition];
+        tv.setText(context.getString(currentElement.getNameId()));
         tv.invalidate();
-
-        reader.read(tv.getText().toString());
+        if (currentElement == MainMenuElementType.STATUS) {
+            readStatus();
+        } else {
+            TextReader.read(tv.getText().toString());
+        }
     }
 
     private void readStatus() {
@@ -111,24 +117,23 @@ public class MainMenu implements MenuInterface {
         sb.append(batLevel);
         sb.append(" ");
         sb.append(context.getString(R.string.percent));
-        sb.append(" ");
 
         if (networkInfo == null || !networkInfo.isConnected()) {
             sb.append(context.getString(R.string.noNetwork));
         } else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
             sb.append(context.getString(R.string.mobileNework));
         } else if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-            sb.append(context.getString(R.string.Wifi));
+            sb.append(context.getString(R.string.wifi));
         }
 
-        sb.append(context.getString(R.string.selectedElementIs));
-        sb.append(" ");
+//        sb.append(context.getString(R.string.selectedElementIs));
+//        sb.append(" ");
 
-        reader.read(sb.toString());
+        TextReader.read(sb.toString());
     }
 
 
-    public void destroy() {
-        reader.shutdown();
-    }
+//    public void destroy() {
+//        reader.shutdown();
+//    }
 }

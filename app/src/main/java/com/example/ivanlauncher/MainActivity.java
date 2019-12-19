@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.ui.GestureListener;
+import com.example.ivanlauncher.ui.TextReader;
 import com.example.ivanlauncher.ui.UserInterfaceEngine;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TextReader.init(getApplicationContext());
+
         //this blicks notifications but and the touch listener !
 //        getWindow().addFlags(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
 
@@ -40,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onTopToBottomSwipe() {
-                ui.selectNext();
+                ui.selectPrevious();
             }
 
             public void onBottomToTopSwipe() {
-                ui.selectPrevious();
+                ui.selectNext();
             }
         });
 
@@ -87,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        ui.resumeUI();
+        ui.resetUI();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        ui.destroy();
+//        TextRe
     }
 }

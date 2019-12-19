@@ -30,10 +30,12 @@
     <string name="currentTime">Часът е</string>
     <string name="displayOn">Екранът е включен</string>
     <string name="noNetwork">Няма връзка с интернет</string>
-    <string name="Wifi">Wi Fi</string>
+    <string name="wifi">Връзката е домашен интернет</string>
     <string name="mobileNework">Мобилен интернет много опасно</string>
     <string name="selectedElementIs">Селектираният елемент е</string>
     <string name="dailing">Набирам</string>
+    <string name="inCamera">В камера</string>
+    <string name="tookPhoto">Снимам</string>
 
 
 </resources>

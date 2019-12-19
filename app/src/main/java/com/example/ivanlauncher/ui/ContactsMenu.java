@@ -19,21 +19,20 @@ public class ContactsMenu implements MenuInterface {
 
 
     private List<Contact> contacts;
-    ContactsProvider contactsProvider;
 
 
     UserInterfaceEngine parent;
 
     Context context;
 
-    TextReader reader;
+//    TextReader reader;
     TextView tv;
 
     int currentPosition = 0;
 
     public ContactsMenu(Context context, TextView tv, UserInterfaceEngine parent) {
-        reader = new TextReader(context);
-        contactsProvider = new ContactsProvider(context);
+//        reader = new TextReader(context);
+        contacts = ContactsProvider.getContacts(context);
         this.tv = tv;
         this.context = context;
         this.parent = parent;
@@ -42,9 +41,9 @@ public class ContactsMenu implements MenuInterface {
 
 
     @Override
-    public void resumeUI() {
+    public void resetUI() {
         currentPosition = 0;
-        contacts = contactsProvider.getContacts();
+        contacts = ContactsProvider.getContacts(context);
         notifyForChanges();
     }
 
@@ -71,10 +70,11 @@ public class ContactsMenu implements MenuInterface {
     public void enter() {
         Contact selectedContact = contacts.get(currentPosition);
 
-        reader.read(context.getString(R.string.dailing) + " "+ selectedContact.getName());
+        TextReader.read(context.getString(R.string.dailing) + " "+ selectedContact.getName());
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedContact.getPhoneNumber()));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
     }
@@ -84,11 +84,11 @@ public class ContactsMenu implements MenuInterface {
         tv.setText(contacts.get(currentPosition).getName());
         tv.invalidate();
 
-        reader.read(tv.getText().toString());
+        TextReader.read(tv.getText().toString());
     }
 
-    @Override
-    public void destroy() {
-        reader.shutdown();
-    }
+//    @Override
+//    public void destroy() {
+//        TextReader.shutdown();
+//    }
 }

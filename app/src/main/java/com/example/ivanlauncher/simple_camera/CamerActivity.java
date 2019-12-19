@@ -34,6 +34,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.email.EmailSender;
 import com.example.ivanlauncher.ui.GestureListener;
+import com.example.ivanlauncher.ui.TextReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -88,6 +89,7 @@ public class CamerActivity extends AppCompatActivity {
         findViewById(R.id.camera_main_layout).setOnTouchListener(new GestureListener(){
             public void onRightToLeftSwipe() {
                 Log.e("RIGHT-LEFT", "please pass SwipeDetector.onSwipeEvent Interface instance");
+                takePhoto();
                 CamerActivity.this.takePicture();
             }
 
@@ -98,12 +100,12 @@ public class CamerActivity extends AppCompatActivity {
 
             public void onTopToBottomSwipe() {
                 Log.e("TOP-DOWN", "please pass SwipeDetector.onSwipeEvent Interface instance");
-//                MainActivity.this.onDown();
+                readStatus();
             }
 
             public void onBottomToTopSwipe() {
                 Log.e("DOWN-TOP", "please pass SwipeDetector.onSwipeEvent Interface instance");
-//                MainActivity.this.onUp();
+                readStatus();
             }
         });
     }
@@ -242,7 +244,7 @@ public class CamerActivity extends AppCompatActivity {
                         }
                     }
                 }
-                private void save(byte[] bytes) throws IOException {
+                private void save(byte[] bytes) throws IOException {//todo !!!
                     OutputStream output = null;
                     try {
                         output = new FileOutputStream(file);
@@ -369,6 +371,7 @@ public class CamerActivity extends AppCompatActivity {
         } else {
             textureView.setSurfaceTextureListener(textureListener);
         }
+        readStatus();
     }
     @Override
     protected void onPause() {
@@ -377,4 +380,16 @@ public class CamerActivity extends AppCompatActivity {
         stopBackgroundThread();
         super.onPause();
     }
+
+
+
+    private void readStatus(){
+        TextReader.read(getApplicationContext().getString(R.string.inCamera));
+    }
+
+
+    private void takePhoto(){
+        TextReader.read(getApplicationContext().getString(R.string.tookPhoto));
+    }
+
 }

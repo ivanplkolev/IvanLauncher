@@ -8,14 +8,14 @@ import java.util.Locale;
 
 public class TextReader {
 
-    private TextToSpeech textToSpeech;
+    private static TextToSpeech textToSpeech;
 
 
-    private final int NOT_INITALED_STATUS = -100;
-    int initStatus = NOT_INITALED_STATUS;
+    private static final int NOT_INITALED_STATUS = -100;
+    static int initStatus = NOT_INITALED_STATUS;
 
 
-    public TextReader(final Context context) {
+    public static void init(final Context context) {
         textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -24,18 +24,18 @@ public class TextReader {
         });
     }
 
-    private void setStatus(int initStatus) {
-        this.initStatus = initStatus;
+    private static void setStatus(int initStatus) {
+        TextReader.initStatus = initStatus;
     }
 
-    public void read(String str) {
+    public static void read(String str) {
         if (!isInitialized()) {
             return;
         }
         read(str, null);
     }
 
-    public void read(String str, Locale l) {
+    public static void read(String str, Locale l) {
         if (!isInitialized()) {
             return;
         }
@@ -48,12 +48,12 @@ public class TextReader {
 
     }
 
-    public boolean isInitialized() {
+    public static boolean isInitialized() {
         return initStatus != NOT_INITALED_STATUS;
     }
 
 
-    public void shutdown() {
+    public static void shutdown() {
         if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
