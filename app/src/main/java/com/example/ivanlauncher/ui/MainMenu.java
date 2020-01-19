@@ -22,11 +22,13 @@ public class MainMenu implements MenuInterface {
         this.context = context;
         this.parent = parent;
 
-        menu = new MainMenuElementType[4];
+        menu = new MainMenuElementType[6];
         menu[0] = MainMenuElementType.STATUS;
-        menu[1] = MainMenuElementType.CONTACTS;
-        menu[2] = MainMenuElementType.EMAIL_SENDER;
-        menu[3] = MainMenuElementType.SETTINGS;
+        menu[1] = MainMenuElementType.REGISTER;
+        menu[2] = MainMenuElementType.CONTACTS;
+        menu[3] = MainMenuElementType.IMAGE_READER;
+        menu[4] = MainMenuElementType.EMAIL_SENDER;
+        menu[5] = MainMenuElementType.SETTINGS;
     }
 
     UserInterfaceEngine parent;

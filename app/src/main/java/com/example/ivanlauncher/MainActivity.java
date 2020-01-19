@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS)) {
 //            ContactsProvider.refreshContacts(getApplicationContext());
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS,
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS,android.Manifest.permission.READ_CALL_LOG,
                     android.Manifest.permission.CALL_PHONE}, REQUEST);
         }
     }

@@ -28,7 +28,7 @@ public class MyBroadCastReciever extends BroadcastReceiver {
 
 //            start main Activity !
 
-            Intent lockIntent = new Intent(context, MainActivity.class);
+            Intent lockIntent = new Intent(context, LockScreenActivity.class);
             lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 
             context.startActivity(lockIntent);

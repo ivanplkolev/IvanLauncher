@@ -70,7 +70,7 @@ public class CallLogDetail {
             sb.append(getName());
         }
         sb.append(" ");
-        sb.append(getTime().format(DateTimeFormatter.ofPattern("EEEEE MMMMM yyyy HH:mm", Locale.getDefault())));
+        sb.append(getTime().format(DateTimeFormatter.ofPattern("HH:mm EEEE dd MMMM yyyy", Locale.getDefault())));
         sb.append(" ");
         sb.append(context.getString(R.string.duration));
         sb.append(" ");

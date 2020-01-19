@@ -19,11 +19,11 @@ public class LockScreenActivity extends AppCompatActivity {
 
         findViewById(R.id.main_view_main_layout).setOnTouchListener(new GestureListener() {
             public void onRightToLeftSwipe() {
-                LockScreenActivity.this.finish();
+                //do nothing
             }
 
             public void onLeftToRightSwipe() {
-                //do nothing
+                LockScreenActivity.this.finish();
             }
 
             public void onTopToBottomSwipe() {

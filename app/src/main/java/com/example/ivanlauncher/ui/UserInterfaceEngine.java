@@ -12,6 +12,7 @@ public class UserInterfaceEngine implements MenuInterface {
         mainMenu = new MainMenu(context, tv, this);
         contacts = new ContactsMenu(context, tv, this);
         register = new RegisterMenu(context, tv, this);
+        registerSubMenu = new RegisterSubMenu(context, tv, this);
         active = mainMenu;
     }
 
