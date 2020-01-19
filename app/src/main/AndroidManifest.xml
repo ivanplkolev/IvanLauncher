@@ -18,6 +18,9 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <!-- Needed only if your calling app reads numbers from the `PHONE_STATE` intent action. -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
+
 
 
     <application
@@ -90,6 +93,11 @@
         <activity
             android:name=".simple_camera.CamerActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".LockScreenActivity"
+            android:screenOrientation="portrait" />
+
 
 
         <receiver android:name=".MyBroadCastReciever">

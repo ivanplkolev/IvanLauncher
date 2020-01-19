@@ -46,6 +46,21 @@ public class TextReader {
             Log.e("TTS", "Error in converting Text to Speech!");
         }
 
+
+        //todo not all invokations should be blocking !!!! -- may be add it another method and check it only for not priority texts
+//        while(textToSpeech.isSpeaking()){
+//            try {
+//                Thread.sleep(10);//or 5
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+    }
+
+
+    public static  boolean isReading(){
+        return textToSpeech.isSpeaking();
     }
 
     public static boolean isInitialized() {

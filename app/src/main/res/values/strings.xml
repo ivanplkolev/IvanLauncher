@@ -14,12 +14,15 @@
     <string name="status">Статус на телефона</string>
     <string name="number">Номер</string>
     <string name="allContacts">Всички контакти</string>
+    <string name="callRegister">Регистър на повиквания</string>
+    <string name="duration">Продължителност</string>
     <string name="contactGroups">Групи контакти</string>
     <string name="register">Регистър на повиквания</string>
-    <string name="missedCalls">ропуснати повиквания</string>
+    <string name="missedCalls">Пропуснати повиквания</string>
     <string name="dailedCalls">Набрани номера</string>
     <string name="receivedCalls">Приети повиквания</string>
     <string name="sendMail">Изпрати писмо</string>
+    <string name="readImage">Прочети текст от снимка</string>
     <string name="Calling">Търси Ви</string>
     <string name="Dailing">Набиране</string>
     <string name="settings">Настройки</string>
@@ -35,6 +38,7 @@
     <string name="mobileNework">Мобилен интернет много опасно</string>
     <string name="selectedElementIs">Селектираният елемент е</string>
     <string name="dailing">Набирам</string>
+    <string name="pleaseConfirm">Моля потвърдете ище ведъж</string>
     <string name="inCamera">В камера</string>
     <string name="tookPhoto">Снимам</string>
     <string name="closedConnection">Затварям връзката</string>

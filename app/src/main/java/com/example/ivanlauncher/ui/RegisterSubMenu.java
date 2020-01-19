@@ -10,30 +10,18 @@ import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.contacts.ContactsProvider;
-import com.example.ivanlauncher.ui.elements.Contact;
+import com.example.ivanlauncher.contacts.CallRegisterLoader;
+import com.example.ivanlauncher.ui.elements.CallLogDetail;
+import com.example.ivanlauncher.ui.elements.RegisterMenuElementType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactsMenu implements MenuInterface {
-
+public class RegisterSubMenu implements MenuInterface {
 
     private boolean confirmed = false;
 
-    private List<Contact> contacts;
-
-
-    private UserInterfaceEngine parent;
-
-    private Context context;
-
-    //    TextReader reader;
-    private TextView tv;
-
-    private int currentPosition = 0;
-
-    public ContactsMenu(Context context, TextView tv, UserInterfaceEngine parent) {
+    public RegisterSubMenu(Context context, TextView tv, UserInterfaceEngine parent) {
 //        reader = new TextReader(context);
 //        contacts = ContactsProvider.getContacts(context);
         this.tv = tv;
@@ -42,14 +30,31 @@ public class ContactsMenu implements MenuInterface {
 
     }
 
+    private List<CallLogDetail> logDetails;
+
+
+    private UserInterfaceEngine parent;
+
+    private Context context;
+
+
+    private RegisterMenuElementType[] menu;
+
+    //    TextReader reader;
+    private TextView tv;
+
+    private int currentPosition = 0;
+
+
+    RegisterMenuElementType type;
 
     @Override
     public void resetUI() {
         confirmed = false;
         currentPosition = 0;
-        contacts = new ArrayList<>(ContactsProvider.getContacts(context));
+        logDetails = new ArrayList<>(CallRegisterLoader.realodAllCallHistory(context, type));
 
-        if (contacts.size() == 0) {
+        if (logDetails.size() == 0) {
             back();
             return;
         }
@@ -57,13 +62,15 @@ public class ContactsMenu implements MenuInterface {
         notifyForChanges();
     }
 
+    @Override
     public void selectNext() {
-        if (currentPosition < contacts.size() - 1) {
+        if (currentPosition < logDetails.size() - 1) {
             currentPosition++;
         }
         notifyForChanges();
     }
 
+    @Override
     public void selectPrevious() {
         if (currentPosition > 0) {
             currentPosition--;
@@ -76,22 +83,22 @@ public class ContactsMenu implements MenuInterface {
         if (confirmed) {
             confirmed = false;
         } else {
-            parent.goToMainMenu();
+            parent.goToRegister();
         }
     }
 
     @Override
     public void enter() {
-        Contact selectedContact = contacts.get(currentPosition);
+        CallLogDetail selectedDetail = logDetails.get(currentPosition);
 
         if(!confirmed){
-            TextReader.read(context.getString(R.string.dailing) + " " + selectedContact.getName() +" "+context.getString(R.string.pleaseConfirm) );
+            TextReader.read(context.getString(R.string.dailing) + " " + selectedDetail.getName() +" "+context.getString(R.string.pleaseConfirm) );
             confirmed = true;
 
             return;
         }
 
-        TextReader.read(context.getString(R.string.dailing) + " " + selectedContact.getName());
+        TextReader.read(context.getString(R.string.dailing) + " " + selectedDetail.getName());
 
         try {
             //to finish reading the
@@ -101,7 +108,7 @@ public class ContactsMenu implements MenuInterface {
         }
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedContact.getPhoneNumber()));
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedDetail.getPhoneNumber()));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
@@ -109,14 +116,14 @@ public class ContactsMenu implements MenuInterface {
 
     @Override
     public void notifyForChanges() {
-        tv.setText(contacts.get(currentPosition).getName());
+
+        CallLogDetail detail = logDetails.get(currentPosition);
+
+        String info = detail.getInfo(context);
+
+        tv.setText(info);
         tv.invalidate();
 
         TextReader.read(tv.getText().toString());
     }
-
-//    @Override
-//    public void destroy() {
-//        TextReader.shutdown();
-//    }
 }

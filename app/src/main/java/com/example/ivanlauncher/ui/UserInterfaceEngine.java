@@ -3,18 +3,23 @@ package com.example.ivanlauncher.ui;
 import android.content.Context;
 import android.widget.TextView;
 
+import com.example.ivanlauncher.ui.elements.RegisterMenuElementType;
+
 public class UserInterfaceEngine implements MenuInterface {
 
 
     public UserInterfaceEngine(Context context, TextView tv) {
         mainMenu = new MainMenu(context, tv, this);
         contacts = new ContactsMenu(context, tv, this);
+        register = new RegisterMenu(context, tv, this);
         active = mainMenu;
     }
 
     MenuInterface active;
     MenuInterface contacts;
     MenuInterface mainMenu;
+    MenuInterface register;
+    RegisterSubMenu registerSubMenu;
 
 
     @Override
@@ -54,6 +59,17 @@ public class UserInterfaceEngine implements MenuInterface {
 
     void goToContacts() {
         active = contacts;
+        resetUI();
+    }
+
+    void goToRegister() {
+        active = register;
+        resetUI();
+    }
+
+    void goToRegisterSubMenu(RegisterMenuElementType type) {
+        active = registerSubMenu;
+        registerSubMenu.type = type;
         resetUI();
     }
 

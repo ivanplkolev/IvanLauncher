@@ -2,6 +2,7 @@ package com.example.ivanlauncher.simple_camera;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -16,6 +17,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -33,6 +35,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.email.EmailSender;
+import com.example.ivanlauncher.ocr.OCRCapture;
 import com.example.ivanlauncher.ui.GestureListener;
 import com.example.ivanlauncher.ui.TextReader;
 
@@ -54,6 +57,14 @@ import java.util.List;
 //import android.support.v7.app.AppCompatActivity;
 
 public class CamerActivity extends AppCompatActivity {
+
+    public static final String ACTION = "action";
+
+    public static final int TYPE_READ_IMAGE= 1;
+    public static final int TYPE_SEND_IMAGE= 2;
+
+    private int type;
+
     private static final String TAG = "AndroidCameraApi";
     private TextView textView;
     private TextureView textureView;
@@ -85,6 +96,9 @@ public class CamerActivity extends AppCompatActivity {
         textureView = (TextureView) findViewById(R.id.texture);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
+
+        Intent i = getIntent();
+        type = i.getIntExtra(ACTION, 0);
 
         findViewById(R.id.camera_main_layout).setOnTouchListener(new GestureListener(){
             public void onRightToLeftSwipe() {
@@ -230,8 +244,16 @@ public class CamerActivity extends AppCompatActivity {
 
                         save(bytes);
 
-                        new EmailSender().execute(file);
-
+                        if(type == TYPE_SEND_IMAGE) {
+                            new EmailSender().execute(file);
+                        } else if(type ==TYPE_READ_IMAGE){
+                            // open new blank activity with the result
+                            String text = OCRCapture.Builder(CamerActivity.this).getTextFromUri(Uri.fromFile(file));
+                            TextReader.read(text);
+                            while(TextReader.isReading()){
+                                // only wait
+                            }
+                        }
                         CamerActivity.this.close();
 
                     } catch (FileNotFoundException e) {

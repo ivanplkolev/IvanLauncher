@@ -36,7 +36,7 @@ public class MainMenu implements MenuInterface {
 
     MainMenuElementType[] menu;
 
-//    TextReader reader;
+    //    TextReader reader;
     TextView tv;
 
     int currentPosition = 0;
@@ -75,10 +75,20 @@ public class MainMenu implements MenuInterface {
             case CONTACTS:
                 parent.goToContacts();
                 break;
+            case REGISTER:
+                parent.goToRegister();
+                break;
             case EMAIL_SENDER:
                 Intent i = new Intent(context, CamerActivity.class);
+                i.putExtra(CamerActivity.ACTION, CamerActivity.TYPE_SEND_IMAGE);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
+                break;
+            case IMAGE_READER:
+                Intent ir = new Intent(context, CamerActivity.class);
+                ir.putExtra(CamerActivity.ACTION, CamerActivity.TYPE_READ_IMAGE);
+                ir.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(ir);
                 break;
             case SETTINGS:
                 Intent is = new Intent(android.provider.Settings.ACTION_SETTINGS);
