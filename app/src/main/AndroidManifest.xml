@@ -80,12 +80,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ocr.OcrCaptureActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ocr.OCRMainActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".simple_camera.CamerActivity"
             android:screenOrientation="portrait" />
 

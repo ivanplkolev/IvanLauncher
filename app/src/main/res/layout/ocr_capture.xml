@@ -21,12 +21,4 @@
 
     </com.example.ivanlauncher.camera.CameraSourcePreview>
 
-    <ImageButton
-        android:padding="10dp"
-        android:tint="?attr/colorAccent"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:onClick="selectAll"
-        android:contentDescription="@string/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </LinearLayout>

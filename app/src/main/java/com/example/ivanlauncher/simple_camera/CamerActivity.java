@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -17,27 +19,30 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 import android.util.Size;
+import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.email.EmailSender;
-import com.example.ivanlauncher.ocr.OCRCapture;
 import com.example.ivanlauncher.ui.GestureListener;
 import com.example.ivanlauncher.ui.TextReader;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -248,10 +253,36 @@ public class CamerActivity extends AppCompatActivity {
                             new EmailSender().execute(file);
                         } else if(type ==TYPE_READ_IMAGE){
                             // open new blank activity with the result
-                            String text = OCRCapture.Builder(CamerActivity.this).getTextFromUri(Uri.fromFile(file));
-                            TextReader.read(text);
-                            while(TextReader.isReading()){
-                                // only wait
+//                            Bitmap textBitmap = BitmapFactory.decodeFile(file.getPath());
+                            Bitmap textBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
+
+                            //todo move it to method
+                            {
+                                TextRecognizer textRecognizer = new TextRecognizer.Builder(CamerActivity.this).build();
+
+                                if (!textRecognizer.isOperational()) {
+                                    new AlertDialog.Builder(CamerActivity.this)
+                                            .setMessage("Text recognizer could not be set up on your device :(")
+                                            .show();
+                                    return;
+                                }
+
+                                Frame frame = new Frame.Builder().setBitmap(textBitmap).setRotation(Surface.ROTATION_90).build();
+                                SparseArray<TextBlock> text = textRecognizer.detect(frame);
+
+                                StringBuilder sb = new StringBuilder();
+
+                                for (int i = 0; i < text.size(); ++i) {
+                                    TextBlock item = text.valueAt(i);
+                                    if (item != null && item.getValue() != null) {
+                                        sb.append(item.getValue());
+                                    }
+                                }
+
+                                TextReader.read(sb.toString());
+                                while(TextReader.isReading()){
+                                    // only wait
+                                }
                             }
                         }
                         CamerActivity.this.close();
