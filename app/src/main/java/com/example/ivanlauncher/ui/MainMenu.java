@@ -8,7 +8,7 @@ import android.os.BatteryManager;
 import android.widget.TextView;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.simple_camera.CamerActivity;
+import com.example.ivanlauncher.camera.CameraActivity;
 import com.example.ivanlauncher.ui.elements.MainMenuElementType;
 
 import java.text.SimpleDateFormat;
@@ -81,14 +81,14 @@ public class MainMenu implements MenuInterface {
                 parent.goToRegister();
                 break;
             case EMAIL_SENDER:
-                Intent i = new Intent(context, CamerActivity.class);
-                i.putExtra(CamerActivity.ACTION, CamerActivity.TYPE_SEND_IMAGE);
+                Intent i = new Intent(context, CameraActivity.class);
+                i.putExtra(CameraActivity.ACTION, CameraActivity.TYPE_SEND_IMAGE);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
                 break;
             case IMAGE_READER:
-                Intent ir = new Intent(context, CamerActivity.class);
-                ir.putExtra(CamerActivity.ACTION, CamerActivity.TYPE_READ_IMAGE);
+                Intent ir = new Intent(context, CameraActivity.class);
+                ir.putExtra(CameraActivity.ACTION, CameraActivity.TYPE_READ_IMAGE);
                 ir.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(ir);
                 break;

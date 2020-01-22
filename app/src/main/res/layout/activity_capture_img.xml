@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/camera_main_layout"
-    tools:context=".simple_camera.CamerActivity">
+    tools:context=".camera.CameraActivity">
 
 
     <TextView

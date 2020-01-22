@@ -80,16 +80,16 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".simple_camera.CamerActivity"
+            android:name=".camera.CameraActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".LockScreenActivity"
+            android:name=".lock_screen.LockScreenActivity"
             android:screenOrientation="portrait" />
 
 
 
-        <receiver android:name=".MyBroadCastReciever">
+        <receiver android:name=".lock_screen.MyBroadCastReciever">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_OFF"/>
                 <action android:name="android.intent.action.SCREEN_ON"/>

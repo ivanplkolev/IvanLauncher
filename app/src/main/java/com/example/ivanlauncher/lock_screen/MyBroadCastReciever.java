@@ -1,4 +1,4 @@
-package com.example.ivanlauncher;
+package com.example.ivanlauncher.lock_screen;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.BatteryManager;
 
+import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.call.OngoingCall;
 import com.example.ivanlauncher.ui.TextReader;
 

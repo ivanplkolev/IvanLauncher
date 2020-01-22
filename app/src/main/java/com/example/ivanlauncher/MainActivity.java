@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.ivanlauncher.lock_screen.MyBroadCastReciever;
 import com.example.ivanlauncher.ui.GestureListener;
 import com.example.ivanlauncher.ui.TextReader;
 import com.example.ivanlauncher.ui.UserInterfaceEngine;

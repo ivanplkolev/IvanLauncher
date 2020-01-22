@@ -1,9 +1,10 @@
-package com.example.ivanlauncher;
+package com.example.ivanlauncher.lock_screen;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.ui.GestureListener;
 import com.example.ivanlauncher.ui.TextReader;
 
