@@ -4,6 +4,7 @@ import android.content.Context;
 import android.provider.CallLog;
 
 import com.example.ivanlauncher.R;
+import com.example.ivanlauncher.contacts.ContactsLoader;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -18,9 +19,6 @@ public class CallLogDetail {
     }
 
     Type type;
-
-    Contact contact;
-
 
     private String phoneNumber;
     private String name;
@@ -44,6 +42,10 @@ public class CallLogDetail {
         this.name = name;
         this.duration = duration;
         this.dateTime = Instant.ofEpochMilli(dateEpoch).atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        if (name == null || name.length() == 0) {
+            this.name = ContactsLoader.getContact(phoneNumber);
+        }
     }
 
     public String getPhoneNumber() {
@@ -66,9 +68,7 @@ public class CallLogDetail {
 
     public String getInfo(Context context) {
         StringBuilder sb = new StringBuilder();
-        if (getName() != null) {
-            sb.append(getName());
-        }
+        sb.append(getName());
         sb.append(" ");
         sb.append(getTime().format(DateTimeFormatter.ofPattern("HH:mm EEEE dd MMMM yyyy", Locale.getDefault())));
         sb.append(" ");

@@ -8,14 +8,16 @@ import android.provider.ContactsContract;
 import com.example.ivanlauncher.ui.elements.Contact;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ContactsLoader {
 
-    public static void realodAllcontacts(Context activity, List<Contact> contactList) {
 
-        ArrayList<Contact> newContactList = new ArrayList<>();
-        ContentResolver cr = activity.getContentResolver();
+    public static  ArrayList<Contact> cachedContactList = new ArrayList<>();
+
+    public static  ArrayList<Contact> realodAllcontacts(Context c) {
+
+        ArrayList<Contact> contactList = new ArrayList<>();
+        ContentResolver cr = c.getContentResolver();
         Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
         if (cur == null || cur.getCount() == 0) {
             if (cur != null) {
@@ -29,15 +31,32 @@ public class ContactsLoader {
                 Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
                 if (pCur != null && pCur.moveToNext()) {
                     String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    newContactList.add(new Contact(name, phoneNo));
+                    contactList.add(new Contact(name, phoneNo));
                     pCur.close();
                 }
             }
         }
         cur.close();
 
-        contactList.clear();
-        contactList.addAll(newContactList);
+        cachedContactList = contactList;
+
+        return contactList;
     }
+
+
+    public static String getContact(String number) {
+        if (number.length() > 8) {
+            number = number.substring(number.length() - 8);
+        }
+
+        for (Contact contact : cachedContactList) {
+            if (contact.getPhoneNumber().replaceAll(" ","").endsWith(number)) {
+                return contact.getName();
+            }
+        }
+
+        return number;
+    }
+
 
 }

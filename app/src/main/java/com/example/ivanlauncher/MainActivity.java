@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.ivanlauncher.contacts.ContactsProvider;
 import com.example.ivanlauncher.ui.GestureListener;
 import com.example.ivanlauncher.ui.TextReader;
 import com.example.ivanlauncher.ui.UserInterfaceEngine;
@@ -101,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
-
-        ContactsProvider.getContacts(getApplicationContext());
     }
 
     public void onResume() {

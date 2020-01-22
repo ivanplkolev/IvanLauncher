@@ -10,10 +10,9 @@ import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.contacts.ContactsProvider;
+import com.example.ivanlauncher.contacts.ContactsLoader;
 import com.example.ivanlauncher.ui.elements.Contact;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsMenu implements MenuInterface {
@@ -47,7 +46,7 @@ public class ContactsMenu implements MenuInterface {
     public void resetUI() {
         confirmed = false;
         currentPosition = 0;
-        contacts = new ArrayList<>(ContactsProvider.getContacts(context));
+        contacts = ContactsLoader.realodAllcontacts(context);
 
         if (contacts.size() == 0) {
             back();

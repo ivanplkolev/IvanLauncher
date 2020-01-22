@@ -5,12 +5,8 @@ import android.telecom.Call;
 import android.telecom.InCallService;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.contacts.ContactsProvider;
+import com.example.ivanlauncher.contacts.ContactsLoader;
 import com.example.ivanlauncher.ui.TextReader;
-import com.example.ivanlauncher.ui.elements.Contact;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public final class CallService extends InCallService {
@@ -21,7 +17,7 @@ public final class CallService extends InCallService {
         Intent i = new Intent(this, CallActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         String number = call.getDetails().getHandle().getSchemeSpecificPart();
-        i.putExtra("number", getContact(number) );
+        i.putExtra("number", ContactsLoader.getContact(number) );
 
         startActivity(i);
     }
@@ -32,23 +28,5 @@ public final class CallService extends InCallService {
         OngoingCall.setCall(null);
     }
 
-
-    private String getContact(String number) {
-        List<Contact> contactList =new ArrayList<>( ContactsProvider.getContacts(getApplicationContext()));
-        if (contactList.size() == 0) {
-            return number;
-        }
-        if (number.length() > 8) {
-            number = number.substring(number.length() - 8);
-        }
-
-        for (Contact contact : contactList) {
-            if (contact.getPhoneNumber().replaceAll(" ","").endsWith(number)) {
-                return contact.getName();
-            }
-        }
-
-        return number;
-    }
 
 }
