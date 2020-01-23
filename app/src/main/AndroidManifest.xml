@@ -18,6 +18,10 @@
     <!-- Needed only if your calling app reads numbers from the `PHONE_STATE` intent action. -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
