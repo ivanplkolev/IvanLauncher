@@ -26,6 +26,11 @@
     <string name="Calling">Търси Ви</string>
     <string name="Dailing">Набиране</string>
     <string name="settings">Настройки</string>
+    <string name="sms">есемеси</string>
+    <string name="read">преочетено</string>
+    <string name="notRead">непрочетено</string>
+    <string name="from">от</string>
+    <string name="receivedOn">получено на</string>
     <string name="allApps">Всички приложения</string>
     <string name="batteryIs">Батерията е </string>
     <string name="percent">Процента</string>
@@ -44,6 +49,12 @@
     <string name="closedConnection">Затварям връзката</string>
     <string name="inCallWith">Разговор с </string>
     <string name="youDialed">Набрахте  </string>
+    <string name="email">EmaiL::::</string>
+    <string name="email_summary">Emaill---</string>
+    <string name="emailPassword">Password</string>
+    <string name="emailPasswordsummary">Enter your email here</string>
+    <string name="forbidStatusBarSummary">This will forbid the statusbar</string>
+    <string name="forbidStatusbar">Hide StatusBar</string>
 
 
 </resources>

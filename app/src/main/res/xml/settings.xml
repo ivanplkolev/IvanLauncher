@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.preference.SwitchPreference
+        android:defaultValue="false"
+        android:key="forbidStatusBar"
+        android:summary="@string/forbidStatusBarSummary"
+        android:title="@string/forbidStatusbar" />
+
+    <PreferenceCategory android:title="@string/email">
+        <EditTextPreference
+            android:key="emailUserName"
+            android:summary="@string/email_summary"
+            android:title="@string/email" />
+        <EditTextPreference
+            android:key="emailPassword"
+            android:summary="@string/emailPasswordsummary"
+            android:title="@string/emailPassword" />
+
+
+        <EditTextPreference
+            android:key="receiver1"
+            android:summary="receiver1"
+            android:title="receiver1" />
+
+        <EditTextPreference
+            android:key="receiver2"
+            android:summary="receiver2"
+            android:title="receiver2" />
+
+        <EditTextPreference
+            android:key="receiver3"
+            android:summary="receiver3"
+            android:title="receiver3" />
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

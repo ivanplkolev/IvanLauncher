@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.camera.CameraActivity;
+import com.example.ivanlauncher.preferences.PreferencesActivity;
 import com.example.ivanlauncher.ui.elements.MainMenuElementType;
 
 import java.text.SimpleDateFormat;
@@ -22,13 +23,16 @@ public class MainMenu implements MenuInterface {
         this.context = context;
         this.parent = parent;
 
-        menu = new MainMenuElementType[6];
+        menu = new MainMenuElementType[9];
         menu[0] = MainMenuElementType.STATUS;
         menu[1] = MainMenuElementType.REGISTER;
         menu[2] = MainMenuElementType.CONTACTS;
         menu[3] = MainMenuElementType.IMAGE_READER;
         menu[4] = MainMenuElementType.EMAIL_SENDER;
         menu[5] = MainMenuElementType.SETTINGS;
+        menu[6] = MainMenuElementType.ALL_APPS;
+        menu[7] = MainMenuElementType.CONTACT_GROUPS;
+        menu[8] = MainMenuElementType.SMS;
     }
 
     UserInterfaceEngine parent;
@@ -77,6 +81,15 @@ public class MainMenu implements MenuInterface {
             case CONTACTS:
                 parent.goToContacts();
                 break;
+            case SMS:
+                parent.goToAllSMSes();
+                break;
+            case ALL_APPS:
+                parent.goToAllApps();
+                break;
+            case CONTACT_GROUPS:
+                parent.goToContactGroups();
+                break;
             case REGISTER:
                 parent.goToRegister();
                 break;
@@ -93,7 +106,8 @@ public class MainMenu implements MenuInterface {
                 context.startActivity(ir);
                 break;
             case SETTINGS:
-                Intent is = new Intent(android.provider.Settings.ACTION_SETTINGS);
+//                Intent is = new Intent(android.provider.Settings.ACTION_SETTINGS);
+                Intent is = new Intent(context, PreferencesActivity.class);
                 is.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(is);
                 break;

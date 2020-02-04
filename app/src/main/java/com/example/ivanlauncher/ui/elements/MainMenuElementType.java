@@ -8,7 +8,10 @@ public enum MainMenuElementType {
     IMAGE_READER(R.string.readImage),
     CONTACTS(R.string.allContacts),
     REGISTER(R.string.callRegister),
-    SETTINGS(R.string.settings);
+    SETTINGS(R.string.settings),
+    ALL_APPS(R.string.allApps),
+    SMS(R.string.sms),
+    CONTACT_GROUPS(R.string.contactGroups);
 
     private int nameId;
 

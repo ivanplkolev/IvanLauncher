@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.ivanlauncher.lock_screen.MyBroadCastReciever;
+import com.example.ivanlauncher.preferences.PreferencesActivity;
 import com.example.ivanlauncher.ui.GestureListener;
 import com.example.ivanlauncher.ui.TextReader;
 import com.example.ivanlauncher.ui.UserInterfaceEngine;
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                         // API 17 onwards, the method to call is `collapsePanels()`
 
                         if (Build.VERSION.SDK_INT > 16) {
-                            collapseStatusBar = statusBarManager .getMethod("collapsePanels");
+                            collapseStatusBar = statusBarManager.getMethod("collapsePanels");
                         } else {
-                            collapseStatusBar = statusBarManager .getMethod("collapse");
+                            collapseStatusBar = statusBarManager.getMethod("collapse");
                         }
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
@@ -132,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        //todo ask for setting for hiding the toolbar
+
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -173,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
 //        MyBroadCastReciever mReceiver = new MyBroadCastReciever();
 //        registerReceiver(mReceiver, intentFilter);
+
+
+        PreferencesActivity.setPrefs(this);
     }
 
     private void offerReplacingDefaultDialer() {
@@ -187,8 +193,12 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_CONTACTS)) {
 //            ContactsProvider.refreshContacts(getApplicationContext());
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS,android.Manifest.permission.READ_CALL_LOG,
-                    android.Manifest.permission.CALL_PHONE}, REQUEST);
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.READ_CONTACTS,
+                            android.Manifest.permission.READ_CALL_LOG,
+                            android.Manifest.permission.READ_SMS,
+                            android.Manifest.permission.CALL_PHONE},
+                    REQUEST);
         }
     }
 
