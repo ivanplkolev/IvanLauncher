@@ -1,4 +1,4 @@
-package com.example.ivanlauncher.ui;
+package com.example.ivanlauncher.common;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
@@ -16,12 +16,7 @@ public class TextReader {
 
 
     public static void init(final Context context) {
-        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                setStatus(status);
-            }
-        });
+        textToSpeech = new TextToSpeech(context, status -> setStatus(status));
     }
 
     private static void setStatus(int initStatus) {
@@ -35,7 +30,7 @@ public class TextReader {
         read(str, null);
     }
 
-    public static void read(String str, Locale l) {
+    private static void read(String str, Locale l) {
         if (!isInitialized()) {
             return;
         }

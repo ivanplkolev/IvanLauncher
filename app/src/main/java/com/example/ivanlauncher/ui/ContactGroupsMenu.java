@@ -3,7 +3,8 @@ package com.example.ivanlauncher.ui;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.example.ivanlauncher.contacts.ContacGroupsLoader;
+import com.example.ivanlauncher.common.TextReader;
+import com.example.ivanlauncher.loaders.ContacGroupsLoader;
 import com.example.ivanlauncher.ui.elements.ContactGroup;
 
 import java.util.List;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.provider.CallLog;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.contacts.ContactsLoader;
+import com.example.ivanlauncher.loaders.ContactsLoader;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

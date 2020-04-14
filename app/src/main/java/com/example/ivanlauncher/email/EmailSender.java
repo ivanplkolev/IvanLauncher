@@ -2,7 +2,7 @@ package com.example.ivanlauncher.email;
 
 import android.os.AsyncTask;
 
-import com.example.ivanlauncher.preferences.PreferencesActivity;
+import com.example.ivanlauncher.preferences.PreferencesLoader;
 
 import java.io.File;
 
@@ -12,14 +12,14 @@ public class EmailSender extends AsyncTask<File, Void, Void> {
 
     protected Void doInBackground(File... urls) {
 
-        String email = PreferencesActivity.getEmail();
-        String emailPass = PreferencesActivity.getEmailPass();
-        String[] recepients = PreferencesActivity.getEmailRecepients();
+        String emailUser = PreferencesLoader.getEmail();
+        String emailPass = PreferencesLoader.getEmailPass();
+        String[] recepients = PreferencesLoader.getEmailRecepients();
 
         try {
-            Mail m = new Mail(email, emailPass);
+            Mail m = new Mail(emailUser, emailPass);
             m.setBody("I am sending image");
-            m.setFrom(email);
+            m.setFrom(emailUser);
             m.setSubject("Please check the pic");
             m.addAttachment(urls[0]);
             m.setTo(recepients);

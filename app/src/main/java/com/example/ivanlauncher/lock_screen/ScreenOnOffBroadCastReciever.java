@@ -9,12 +9,12 @@ import android.os.BatteryManager;
 
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.call.OngoingCall;
-import com.example.ivanlauncher.ui.TextReader;
+import com.example.ivanlauncher.common.TextReader;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MyBroadCastReciever extends BroadcastReceiver {
+public class ScreenOnOffBroadCastReciever extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {

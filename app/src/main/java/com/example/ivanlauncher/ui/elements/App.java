@@ -1,4 +1,4 @@
-package com.example.ivanlauncher.contacts;
+package com.example.ivanlauncher.ui.elements;
 
 public class App {
 

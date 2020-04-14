@@ -1,9 +1,11 @@
-package com.example.ivanlauncher.contacts;
+package com.example.ivanlauncher.loaders;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+
+import com.example.ivanlauncher.ui.elements.App;
 
 import java.util.ArrayList;
 import java.util.List;

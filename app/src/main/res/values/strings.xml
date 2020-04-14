@@ -17,6 +17,7 @@
     <string name="callRegister">Регистър на повиквания</string>
     <string name="duration">Продължителност</string>
     <string name="contactGroups">Групи контакти</string>
+    <string name="bookmarksMenu">Запаметени адреси на сайтове</string>
     <string name="register">Регистър на повиквания</string>
     <string name="missedCalls">Пропуснати повиквания</string>
     <string name="dailedCalls">Набрани номера</string>
@@ -27,6 +28,7 @@
     <string name="Dailing">Набиране</string>
     <string name="settings">Настройки</string>
     <string name="sms">есемеси</string>
+    <string name="emails">Електронна поща</string>
     <string name="read">преочетено</string>
     <string name="notRead">непрочетено</string>
     <string name="from">от</string>

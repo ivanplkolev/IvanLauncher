@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.TextView;
 
-import com.example.ivanlauncher.contacts.App;
-import com.example.ivanlauncher.contacts.AppLoader;
+import com.example.ivanlauncher.common.TextReader;
+import com.example.ivanlauncher.ui.elements.App;
+import com.example.ivanlauncher.loaders.AppLoader;
 
 import java.util.List;
 

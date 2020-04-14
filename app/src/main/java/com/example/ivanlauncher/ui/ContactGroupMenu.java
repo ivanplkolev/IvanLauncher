@@ -10,7 +10,8 @@ import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.contacts.ContactsLoader;
+import com.example.ivanlauncher.common.TextReader;
+import com.example.ivanlauncher.loaders.ContactsLoader;
 import com.example.ivanlauncher.ui.elements.Contact;
 import com.example.ivanlauncher.ui.elements.ContactGroup;
 
@@ -79,7 +80,7 @@ public class ContactGroupMenu implements MenuInterface {
         if (confirmed) {
             confirmed = false;
         } else {
-            parent.goToMainMenu();
+            parent.goToContactGroups();
         }
     }
 

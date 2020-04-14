@@ -10,7 +10,8 @@ import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.contacts.CallRegisterLoader;
+import com.example.ivanlauncher.common.TextReader;
+import com.example.ivanlauncher.loaders.CallRegisterLoader;
 import com.example.ivanlauncher.ui.elements.CallLogDetail;
 import com.example.ivanlauncher.ui.elements.RegisterMenuElementType;
 

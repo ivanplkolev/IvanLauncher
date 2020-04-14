@@ -5,8 +5,8 @@ import android.telecom.Call;
 import android.telecom.InCallService;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.contacts.ContactsLoader;
-import com.example.ivanlauncher.ui.TextReader;
+import com.example.ivanlauncher.loaders.ContactsLoader;
+import com.example.ivanlauncher.common.TextReader;
 
 
 public final class CallService extends InCallService {

@@ -11,7 +11,9 @@ public enum MainMenuElementType {
     SETTINGS(R.string.settings),
     ALL_APPS(R.string.allApps),
     SMS(R.string.sms),
-    CONTACT_GROUPS(R.string.contactGroups);
+    EMAILS(R.string.emails),
+    CONTACT_GROUPS(R.string.contactGroups),
+    BOOKMARKS(R.string.bookmarksMenu);
 
     private int nameId;
 

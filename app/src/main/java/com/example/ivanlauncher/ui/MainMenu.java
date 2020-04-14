@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.camera.CameraActivity;
+import com.example.ivanlauncher.common.TextReader;
 import com.example.ivanlauncher.preferences.PreferencesActivity;
 import com.example.ivanlauncher.ui.elements.MainMenuElementType;
 
@@ -23,7 +24,7 @@ public class MainMenu implements MenuInterface {
         this.context = context;
         this.parent = parent;
 
-        menu = new MainMenuElementType[9];
+        menu = new MainMenuElementType[11];
         menu[0] = MainMenuElementType.STATUS;
         menu[1] = MainMenuElementType.REGISTER;
         menu[2] = MainMenuElementType.CONTACTS;
@@ -33,6 +34,8 @@ public class MainMenu implements MenuInterface {
         menu[6] = MainMenuElementType.ALL_APPS;
         menu[7] = MainMenuElementType.CONTACT_GROUPS;
         menu[8] = MainMenuElementType.SMS;
+        menu[9] = MainMenuElementType.EMAILS;
+        menu[10] = MainMenuElementType.BOOKMARKS;
     }
 
     UserInterfaceEngine parent;
@@ -83,6 +86,12 @@ public class MainMenu implements MenuInterface {
                 break;
             case SMS:
                 parent.goToAllSMSes();
+                break;
+            case EMAILS:
+                parent.goToAllEmails();
+                break;
+            case BOOKMARKS:
+                parent.goToBookmarks();
                 break;
             case ALL_APPS:
                 parent.goToAllApps();

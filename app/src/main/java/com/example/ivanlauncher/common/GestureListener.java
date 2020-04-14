@@ -1,4 +1,4 @@
-package com.example.ivanlauncher.ui;
+package com.example.ivanlauncher.common;
 
 import android.util.Log;
 import android.view.MotionEvent;

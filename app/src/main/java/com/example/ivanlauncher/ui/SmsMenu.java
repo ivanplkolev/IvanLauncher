@@ -3,7 +3,8 @@ package com.example.ivanlauncher.ui;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.example.ivanlauncher.contacts.SmsLoader;
+import com.example.ivanlauncher.common.TextReader;
+import com.example.ivanlauncher.loaders.SmsLoader;
 import com.example.ivanlauncher.ui.elements.Sms;
 
 import java.util.List;

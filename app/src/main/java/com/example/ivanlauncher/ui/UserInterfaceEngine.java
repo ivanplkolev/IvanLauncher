@@ -18,6 +18,9 @@ public class UserInterfaceEngine implements MenuInterface {
         allSmses = new SmsMenu(context, tv, this);
         contactGrooups = new ContactGroupsMenu(context, tv, this);
         contactGrooup = new ContactGroupMenu(context, tv, this);
+        emailsMenu = new EmailsMenu(context, tv, this);
+        longTextReader = new LongTextReader(tv, this);
+        bookmarksMenu = new BookmarksMenu(context, tv, this);
         active = mainMenu;
     }
 
@@ -30,6 +33,9 @@ public class UserInterfaceEngine implements MenuInterface {
     MenuInterface allSmses;
     MenuInterface contactGrooups;
     ContactGroupMenu contactGrooup;
+    EmailsMenu emailsMenu;
+    LongTextReader longTextReader;
+    BookmarksMenu bookmarksMenu;
 
 
     @Override
@@ -93,6 +99,16 @@ public class UserInterfaceEngine implements MenuInterface {
         resetUI();
     }
 
+    void goToAllEmails() {
+        active = emailsMenu;
+        resetUI();
+    }
+
+    void goToBookmarks() {
+        active = bookmarksMenu;
+        resetUI();
+    }
+
     void goToAllApps() {
         active = allApps;
         resetUI();
@@ -109,6 +125,17 @@ public class UserInterfaceEngine implements MenuInterface {
         resetUI();
     }
 
+    void gotoFullEmailReading(String content) {
+        active = longTextReader;
+        longTextReader.setText(content);
+        resetUI();
+    }
+
+    void goToUrl(String url){
+        active = longTextReader;
+        longTextReader.setUrl(url);
+        resetUI();
+    }
 
 
 

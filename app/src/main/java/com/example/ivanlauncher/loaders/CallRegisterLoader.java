@@ -1,4 +1,4 @@
-package com.example.ivanlauncher.contacts;
+package com.example.ivanlauncher.loaders;
 
 import android.content.ContentResolver;
 import android.content.Context;

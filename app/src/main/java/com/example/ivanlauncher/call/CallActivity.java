@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.ui.GestureListener;
-import com.example.ivanlauncher.ui.TextReader;
+import com.example.ivanlauncher.common.GestureListener;
+import com.example.ivanlauncher.common.TextReader;
 
 public final class CallActivity extends AppCompatActivity {
 

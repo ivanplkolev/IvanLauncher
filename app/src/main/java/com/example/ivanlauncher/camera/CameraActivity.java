@@ -38,8 +38,8 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.email.EmailSender;
-import com.example.ivanlauncher.ui.GestureListener;
-import com.example.ivanlauncher.ui.TextReader;
+import com.example.ivanlauncher.common.GestureListener;
+import com.example.ivanlauncher.common.TextReader;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;

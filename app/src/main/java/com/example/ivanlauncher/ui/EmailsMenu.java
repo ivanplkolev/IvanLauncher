@@ -4,43 +4,46 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.example.ivanlauncher.common.TextReader;
-import com.example.ivanlauncher.ui.elements.RegisterMenuElementType;
+import com.example.ivanlauncher.email.EmailReader;
+import com.example.ivanlauncher.ui.elements.Email;
 
-public class RegisterMenu implements MenuInterface {
+import java.util.List;
 
-    public RegisterMenu(Context context, TextView tv, UserInterfaceEngine parent) {
-        this.tv = tv;
-        this.context = context;
-        this.parent = parent;
+public class EmailsMenu implements MenuInterface {
 
-        menu = new RegisterMenuElementType[3];
-        menu[0] = RegisterMenuElementType.MISSED;
-        menu[1] = RegisterMenuElementType.DAILED;
-        menu[2] = RegisterMenuElementType.RECEIVED;
-    }
+    private List<Email> emails;
 
     private UserInterfaceEngine parent;
 
     private Context context;
 
-
-    private RegisterMenuElementType[] menu;
-
-    //    TextReader reader;
     private TextView tv;
 
     private int currentPosition = 0;
+
+    public EmailsMenu(Context context, TextView tv, UserInterfaceEngine parent) {
+        this.tv = tv;
+        this.context = context;
+        this.parent = parent;
+    }
 
 
     @Override
     public void resetUI() {
         currentPosition = 0;
+        emails = EmailReader.loadEmails();
+
+        if (emails.size() == 0) {//todo first notify for the back
+            back();
+            return;
+        }
+
         notifyForChanges();
     }
 
     @Override
     public void selectNext() {
-        if (currentPosition < menu.length - 1) {
+        if (currentPosition < emails.size() - 1) {
             currentPosition++;
         }
         notifyForChanges();
@@ -61,14 +64,15 @@ public class RegisterMenu implements MenuInterface {
 
     @Override
     public void enter() {
-        RegisterMenuElementType currentElement = menu[currentPosition];
-        parent.goToRegisterSubMenu(currentElement);
+        Email selectedEmail = emails.get(currentPosition);
+
+        parent.gotoFullEmailReading(selectedEmail.readFull());
     }
 
     @Override
     public void notifyForChanges() {
-        RegisterMenuElementType currentElement = menu[currentPosition];
-        tv.setText(context.getString(currentElement.getNameId()));
+        Email selectedEmail = emails.get(currentPosition);
+        tv.setText(selectedEmail.readShort(context));
         tv.invalidate();
         TextReader.read(tv.getText().toString());
     }

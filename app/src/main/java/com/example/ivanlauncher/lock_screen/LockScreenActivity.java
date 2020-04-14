@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ivanlauncher.R;
-import com.example.ivanlauncher.ui.GestureListener;
-import com.example.ivanlauncher.ui.TextReader;
+import com.example.ivanlauncher.common.GestureListener;
+import com.example.ivanlauncher.common.TextReader;
 
 public class LockScreenActivity extends AppCompatActivity {
 

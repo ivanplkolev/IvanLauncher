@@ -8,14 +8,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.telecom.TelecomManager;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.ivanlauncher.preferences.PreferencesActivity;
-import com.example.ivanlauncher.ui.GestureListener;
-import com.example.ivanlauncher.ui.TextReader;
+import com.example.ivanlauncher.common.GestureListener;
+import com.example.ivanlauncher.common.TextReader;
+import com.example.ivanlauncher.preferences.PreferencesLoader;
 import com.example.ivanlauncher.ui.UserInterfaceEngine;
 
 import java.lang.reflect.InvocationTargetException;
@@ -147,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        ui = new UserInterfaceEngine(getApplicationContext(), (TextView) findViewById(R.id.maintextView));
+        ui = new UserInterfaceEngine(getApplicationContext(), findViewById(R.id.maintextView));
 
 
         findViewById(R.id.main_view_main_layout).setOnTouchListener(new GestureListener() {
@@ -174,11 +173,11 @@ public class MainActivity extends AppCompatActivity {
 
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
-//        MyBroadCastReciever mReceiver = new MyBroadCastReciever();
+//        ScreenOnOffBroadCastReciever mReceiver = new ScreenOnOffBroadCastReciever();
 //        registerReceiver(mReceiver, intentFilter);
 
 
-        PreferencesActivity.setPrefs(this);
+        PreferencesLoader.initPrefernces(this);
     }
 
     private void offerReplacingDefaultDialer() {
