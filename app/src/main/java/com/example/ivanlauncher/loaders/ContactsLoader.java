@@ -9,6 +9,7 @@ import com.example.ivanlauncher.ui.elements.Contact;
 import com.example.ivanlauncher.ui.elements.ContactGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ContactsLoader {
 
@@ -25,6 +26,7 @@ public class ContactsLoader {
                 cur.close();
             }
         }
+
         while (cur.moveToNext()) {
             String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
             String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
@@ -37,9 +39,12 @@ public class ContactsLoader {
                 }
             }
         }
+
         cur.close();
 
         cachedContactList = contactList;
+
+        Collections.sort(contactList);
 
         return contactList;
     }

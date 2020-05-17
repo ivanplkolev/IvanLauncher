@@ -1,6 +1,6 @@
 package com.example.ivanlauncher.ui.elements;
 
-public class Contact {
+public class Contact implements Comparable<Contact> {
 
 
     private String name;
@@ -19,4 +19,10 @@ public class Contact {
     public String getName() {
         return name;
     }
+
+    @Override
+    public int compareTo(Contact o) {
+        return name.compareTo(o.name);
+    }
+
 }

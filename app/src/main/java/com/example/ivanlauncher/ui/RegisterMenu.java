@@ -13,10 +13,11 @@ public class RegisterMenu implements MenuInterface {
         this.context = context;
         this.parent = parent;
 
-        menu = new RegisterMenuElementType[3];
-        menu[0] = RegisterMenuElementType.MISSED;
-        menu[1] = RegisterMenuElementType.DAILED;
-        menu[2] = RegisterMenuElementType.RECEIVED;
+        menu = new RegisterMenuElementType[]{
+                RegisterMenuElementType.MISSED,
+//              RegisterMenuElementType.DAILED;
+                RegisterMenuElementType.RECEIVED
+        };
     }
 
     private UserInterfaceEngine parent;

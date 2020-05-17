@@ -43,18 +43,24 @@ public class TextReader {
 
 
         //todo not all invokations should be blocking !!!! -- may be add it another method and check it only for not priority texts
-//        while(textToSpeech.isSpeaking()){
-//            try {
-//                Thread.sleep(10);//or 5
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+
 
     }
 
+    public static void readBlocking(String str) {
+        read(str);
 
-    public static  boolean isReading(){
+        while (textToSpeech.isSpeaking()) {
+            try {
+                Thread.sleep(10);//or 5
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public static boolean isReading() {
         return textToSpeech.isSpeaking();
     }
 

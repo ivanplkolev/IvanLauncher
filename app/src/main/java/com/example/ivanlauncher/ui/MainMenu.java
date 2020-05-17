@@ -24,18 +24,19 @@ public class MainMenu implements MenuInterface {
         this.context = context;
         this.parent = parent;
 
-        menu = new MainMenuElementType[11];
-        menu[0] = MainMenuElementType.STATUS;
-        menu[1] = MainMenuElementType.REGISTER;
-        menu[2] = MainMenuElementType.CONTACTS;
-        menu[3] = MainMenuElementType.IMAGE_READER;
-        menu[4] = MainMenuElementType.EMAIL_SENDER;
-        menu[5] = MainMenuElementType.SETTINGS;
-        menu[6] = MainMenuElementType.ALL_APPS;
-        menu[7] = MainMenuElementType.CONTACT_GROUPS;
-        menu[8] = MainMenuElementType.SMS;
-        menu[9] = MainMenuElementType.EMAILS;
-        menu[10] = MainMenuElementType.BOOKMARKS;
+        menu = new MainMenuElementType[]{
+        MainMenuElementType.STATUS,
+        MainMenuElementType.REGISTER,
+        MainMenuElementType.CONTACTS,
+//         MainMenuElementType.IMAGE_READER;
+//         MainMenuElementType.EMAIL_SENDER;
+//         MainMenuElementType.SETTINGS;
+         MainMenuElementType.CONTACT_GROUPS,
+         MainMenuElementType.SMS,
+//         MainMenuElementType.EMAILS;
+//       MainMenuElementType.BOOKMARKS;
+        MainMenuElementType.ALL_APPS};
+
     }
 
     UserInterfaceEngine parent;
@@ -143,6 +144,8 @@ public class MainMenu implements MenuInterface {
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
         StringBuilder sb = new StringBuilder();
+        sb.append(context.getString(R.string.screenUnLocked));
+        sb.append(" ");
         sb.append(context.getString(R.string.currentTime));
         sb.append(" ");
         sb.append(new SimpleDateFormat("HH:mm").format(new Date()));

@@ -57,6 +57,8 @@
     <string name="emailPasswordsummary">Enter your email here</string>
     <string name="forbidStatusBarSummary">This will forbid the statusbar</string>
     <string name="forbidStatusbar">Hide StatusBar</string>
+    <string name="screenUnLocked">Отключен</string>
+    <string name="screenLocked">заключен</string>
 
 
 </resources>
