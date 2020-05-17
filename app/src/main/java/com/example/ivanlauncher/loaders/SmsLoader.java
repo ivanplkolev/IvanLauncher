@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SmsLoader {
@@ -57,6 +58,8 @@ public class SmsLoader {
 
 
         cur.close();
+
+        Collections.sort(messages);
 
         return messages;
     }

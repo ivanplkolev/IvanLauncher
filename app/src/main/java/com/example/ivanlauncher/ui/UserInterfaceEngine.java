@@ -21,6 +21,8 @@ public class UserInterfaceEngine implements MenuInterface {
         emailsMenu = new EmailsMenu(context, tv, this);
         longTextReader = new LongTextReader(tv, this);
         bookmarksMenu = new BookmarksMenu(context, tv, this);
+        lockScreenMenu = new LockScreenMenu(context, tv, this);
+        callMenu = new CallMenu(context, tv, this);
         active = mainMenu;
     }
 
@@ -36,6 +38,8 @@ public class UserInterfaceEngine implements MenuInterface {
     EmailsMenu emailsMenu;
     LongTextReader longTextReader;
     BookmarksMenu bookmarksMenu;
+    LockScreenMenu lockScreenMenu;
+    CallMenu callMenu;
 
 
     @Override
@@ -131,12 +135,31 @@ public class UserInterfaceEngine implements MenuInterface {
         resetUI();
     }
 
-    void goToUrl(String url){
+    void goToUrl(String url) {
         active = longTextReader;
         longTextReader.setUrl(url);
         resetUI();
     }
 
+    public void lockTheScreen() {
+        active = lockScreenMenu;
+        resetUI();
+    }
 
+
+    public void openCall(String number) {
+        active = callMenu;
+        callMenu.openCall(number);
+//        resetUI();
+    }
+
+    public void updateCall(int newState) {
+        callMenu.updateUi(newState);
+    }
+
+    public void closeCall() {
+        callMenu.kill_activity();
+//        resetUI();
+    }
 
 }

@@ -31,7 +31,7 @@
     <string name="emails">Електронна поща</string>
     <string name="read">преочетено</string>
     <string name="notRead">непрочетено</string>
-    <string name="from">от</string>
+    <string name="from">есемес от</string>
     <string name="receivedOn">получено на</string>
     <string name="allApps">Всички приложения</string>
     <string name="batteryIs">Батерията е </string>
@@ -45,7 +45,7 @@
     <string name="mobileNework">Мобилен интернет много опасно</string>
     <string name="selectedElementIs">Селектираният елемент е</string>
     <string name="dailing">Набирам</string>
-    <string name="pleaseConfirm">Моля потвърдете ище ведъж</string>
+    <string name="pleaseConfirm">Моля потвърдете още ведъж</string>
     <string name="inCamera">В камера</string>
     <string name="tookPhoto">Снимам</string>
     <string name="closedConnection">Затварям връзката</string>

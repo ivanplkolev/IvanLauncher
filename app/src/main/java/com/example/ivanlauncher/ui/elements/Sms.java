@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class Sms {
+public class Sms implements Comparable<Sms> {
 
 
     private boolean read;
@@ -43,8 +43,8 @@ public class Sms {
 
     public String readShort(Context c) {
         StringBuilder sb = new StringBuilder();
-        sb.append(c.getString(read ? R.string.read : R.string.notRead));
-        sb.append(" ");
+//        sb.append(c.getString(read ? R.string.read : R.string.notRead));
+//        sb.append(" ");
         sb.append(c.getString( R.string.from));
         sb.append(" ");
         sb.append(getSender());
@@ -59,5 +59,9 @@ public class Sms {
         return getContent();
     }
 
+    @Override
+    public int compareTo(Sms o) {
+        return o.received.compareTo(received);
+    }
 
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 
+import com.example.ivanlauncher.MainActivityObserver;
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.common.TextReader;
 import com.example.ivanlauncher.loaders.ContactsLoader;
@@ -107,6 +108,7 @@ public class ContactGroupMenu implements MenuInterface {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedContact.getPhoneNumber()));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            MainActivityObserver.allowRedirect();
             context.startActivity(intent);
         }
     }

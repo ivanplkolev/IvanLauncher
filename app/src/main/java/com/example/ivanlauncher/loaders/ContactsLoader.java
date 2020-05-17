@@ -89,18 +89,21 @@ public class ContactsLoader {
     }
 
 
-    public static String getContact(String number) {
-        if (number.length() > 8) {
-            number = number.substring(number.length() - 8);
-        }
+    public static String getContact(String incomeNumber) {
+        if (incomeNumber.length() > 8) {
 
-        for (Contact contact : cachedContactList) {
-            if (contact.getPhoneNumber().replaceAll(" ", "").endsWith(number)) {
-                return contact.getName();
+            String number = incomeNumber.replaceAll("\\s", "");
+
+            number = number.substring(number.length() - 8);
+
+
+            for (Contact contact : cachedContactList) {
+                if (contact.getPhoneNumber().replaceAll("\\s", "").endsWith(number)) {
+                    return contact.getName();
+                }
             }
         }
-
-        return number;
+        return incomeNumber;
     }
 
 

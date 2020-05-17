@@ -32,10 +32,11 @@ public class MainMenu implements MenuInterface {
 //         MainMenuElementType.EMAIL_SENDER;
 //         MainMenuElementType.SETTINGS;
          MainMenuElementType.CONTACT_GROUPS,
-         MainMenuElementType.SMS,
+         MainMenuElementType.SMS
 //         MainMenuElementType.EMAILS;
 //       MainMenuElementType.BOOKMARKS;
-        MainMenuElementType.ALL_APPS};
+//        MainMenuElementType.ALL_APPS
+        };
 
     }
 

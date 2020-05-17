@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.BatteryManager;
 
+import com.example.ivanlauncher.MainActivityObserver;
 import com.example.ivanlauncher.R;
 import com.example.ivanlauncher.call.OngoingCall;
 import com.example.ivanlauncher.common.TextReader;
@@ -29,11 +30,13 @@ public class ScreenOnOffBroadCastReciever extends BroadcastReceiver {
 
 //            start main Activity !
 
-            Intent lockIntent = new Intent(context, LockScreenActivity.class);
-            lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+//            Intent lockIntent = new Intent(context, LockScreenActivity.class);
+//            lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+//
+//            context.startActivity(lockIntent);
 
-            context.startActivity(lockIntent);
 
+            MainActivityObserver.lockScreen();
 
             //Take count of the screen off position
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
@@ -49,7 +52,7 @@ public class ScreenOnOffBroadCastReciever extends BroadcastReceiver {
     }
 
 
-    private void readOn(Context context){
+    private void readOn(Context context) {
 
         BatteryManager bm = (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
@@ -86,7 +89,7 @@ public class ScreenOnOffBroadCastReciever extends BroadcastReceiver {
     }
 
 
-    private void readOff(Context context){
+    private void readOff(Context context) {
         BatteryManager bm = (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);
         int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
 
@@ -108,7 +111,6 @@ public class ScreenOnOffBroadCastReciever extends BroadcastReceiver {
 
         TextReader.read(sb.toString());
     }
-
 
 
 }
